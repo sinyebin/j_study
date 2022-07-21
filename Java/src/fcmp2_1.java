@@ -1,4 +1,3 @@
-
 import java.util.*;
 public class fcmp2_1 {
     public static void main(String[] args) {
