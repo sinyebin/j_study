@@ -4,14 +4,14 @@ public class fcmp2_1 {
         Scanner scanner = new Scanner(System.in);
         String s=scanner.nextLine();
         String t=scanner.nextLine();
-        Select P=new Select(s, t);
+        Select1 P=new Select1(s, t);
         Ts Q=P.check();
         System.out.println(Q.cmp());
     }
 }
-class Tr{
+class Tr1{
     protected String s,t;
-    public Tr(String s, String t){
+    public Tr1(String s, String t){
         this.s=s;
         this.t=t;
     }
@@ -19,8 +19,8 @@ class Tr{
 interface Ts{
     int cmp();
 }
-class Strcmp extends Tr implements Ts{
-    public Strcmp(String s, String t) {
+class Strcmp1 extends Tr1 implements Ts{
+    public Strcmp1(String s, String t) {
         super(s, t);
         //TODO Auto-generated constructor stub
     }
@@ -29,8 +29,8 @@ class Strcmp extends Tr implements Ts{
     }
 
 }
-class Numcmp extends Tr implements Ts{
-    public Numcmp(String s, String t) {
+class Numcmp1 extends Tr1 implements Ts{
+    public Numcmp1(String s, String t) {
         super(s, t);
         //TODO Auto-generated constructor stub
     }
@@ -40,16 +40,16 @@ class Numcmp extends Tr implements Ts{
     }
 }
 
-class Select extends Tr{
-    public Select(String s, String t) {
+class Select1 extends Tr1{
+    public Select1(String s, String t) {
         super(s, t);
         //TODO Auto-generated constructor stub
     }
     public Ts check(){
         if(isNumeric(s)&&isNumeric(t)){
-            return new Numcmp(s, t);
+            return new Numcmp1(s, t);
         }else{
-            return new Strcmp(s, t);
+            return new Strcmp1(s, t);
         }        
     }
     public boolean isNumeric(String str){
