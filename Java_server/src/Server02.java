@@ -8,7 +8,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 public class Server02 {
     public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\BIT\\Desktop\\j_study\\자바 네트워크 프로그래밍\\blacklist.txt"));
+        BufferedReader br = new BufferedReader(new FileReader("파일주소"));
         ServerSocket serverSocket = new ServerSocket(9999); //9999번 포트 사용
         Socket clientSocket = serverSocket.accept();
         while(true){

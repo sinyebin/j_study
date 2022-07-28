@@ -5,7 +5,7 @@ import java.net.Socket;
 
 public class Client01 {
     public static void main(String[] args) throws IOException{
-        Socket clientSocket=new Socket("192.168.1.13",9999);
+        Socket clientSocket=new Socket("IP주소",9999);
         OutputStream os = clientSocket.getOutputStream();
         DataOutputStream dos=new DataOutputStream(os);
         dos.writeInt(100);

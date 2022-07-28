@@ -12,7 +12,7 @@ import java.util.Scanner;
 public class Client03 {
     public static void main(String[] args) throws UnknownHostException, IOException {
         //연결 부분
-        Socket cs= new Socket("192.168.1.13",9999);
+        Socket cs= new Socket("IP주소",9999);
 
         //데이터 전송 부분
         Scanner scanner = new Scanner(System.in);
