@@ -71,8 +71,17 @@ public class ShopDAO {
 
 	}
 
-	public void delete(ShopDTO dto) {
-
+	public void delete(int no) throws SQLException {
+		conn=JdbcUtil.getConnection();
+		pstmt=conn.prepareStatement(DELETE);
+		pstmt.setInt(1, no);
+		int cnt=pstmt.executeUpdate();
+		if(cnt>0) {
+			System.out.println("delete success");
+		} else {
+			System.out.println("delete fail");
+		}
+		JdbcUtil.close(conn, stmt, rs);
 	}
 
 }
