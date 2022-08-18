@@ -37,8 +37,18 @@ public class ShopDAO {
 		return shopList;
 	}
 
-	public void insert(ShopDTO dto) {
-
+	public void insert(ShopDTO dto) throws SQLException {
+		conn=JdbcUtil.getConnection();
+		pstmt = conn.prepareStatement(INSERT);
+		pstmt.setString(1, dto.getGoods());
+		pstmt.setInt(2, dto.getPrice());
+		int cnt=pstmt.executeUpdate();
+		if(cnt>0) {
+			System.out.println("insert success");
+		}else {
+			System.out.println("insert fail");
+		}
+		JdbcUtil.close(conn, pstmt, rs);
 	}
 
 	public ShopDTO selectOne(ShopDTO dto) {

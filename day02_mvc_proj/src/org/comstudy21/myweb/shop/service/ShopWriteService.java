@@ -1,5 +1,7 @@
 package org.comstudy21.myweb.shop.service;
 
+import java.sql.SQLException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -13,7 +15,12 @@ public class ShopWriteService implements ShopService {
 			String goods=req.getParameter("goods");
 			int price=Integer.parseInt(req.getParameter("price"));
 			ShopDTO dto=new ShopDTO(0,goods,price);
-			shopDAO.insert(dto);
+			try {
+				shopDAO.insert(dto);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			return "redirect:list.do";
 		}else {
 			return "shop/write";
