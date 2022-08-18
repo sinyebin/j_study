@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.comstudy21.myweb.controller.HandlerMapping;
 import org.comstudy21.myweb.controller.HomeController;
 import org.comstudy21.myweb.controller.MyController;
+import org.comstudy21.myweb.shop.service.ShopDetailService;
 import org.comstudy21.myweb.shop.service.ShopListService;
 import org.comstudy21.myweb.shop.service.ShopWriteService;
 
@@ -24,6 +25,8 @@ public class ShopController implements MyController{
 			HandlerMapping handlerMapping = new HandlerMapping();
 			homectrl=handlerMapping.getController("");
 			viewName= homectrl.handleRequest(req, resp);
+		}else if(fileName.equals("/detail")) {
+			viewName=new ShopDetailService().service(req, resp);
 		}
 		
 		return viewName;

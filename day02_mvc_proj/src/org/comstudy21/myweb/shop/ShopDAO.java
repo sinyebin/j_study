@@ -51,8 +51,20 @@ public class ShopDAO {
 		JdbcUtil.close(conn, pstmt, rs);
 	}
 
-	public ShopDTO selectOne(ShopDTO dto) {
-		return null;
+	public ShopDTO selectOne(int no)throws SQLException {
+		ShopDTO shopdto=new ShopDTO();
+		conn=JdbcUtil.getConnection();
+		pstmt=conn.prepareStatement(SELECT_ONE);
+		pstmt.setInt(1, no);
+		rs=pstmt.executeQuery();
+		while(rs.next()) {
+			shopdto=new ShopDTO();
+			shopdto.setNo(rs.getInt("no"));
+			shopdto.setGoods(rs.getString("goods"));
+			shopdto.setPrice(rs.getInt("price"));
+		}
+		JdbcUtil.close(conn, pstmt, rs);
+		return shopdto;
 	}
 
 	public void update(ShopDTO dto) {

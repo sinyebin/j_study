@@ -16,7 +16,7 @@
 List<ShopDTO> shopList = (List<ShopDTO>)request.getAttribute("shopList");
 for(ShopDTO shop:shopList){ //for each문으로 전체 출력
 %>
-<li><%=shop.getNo()%> | <%=shop.getGoods() %> | <%=shop.getPrice() %> </li>
+<li><a href="detail.do?no=<%=shop.getNo()%>"> <%=shop.getGoods() %></a> </li>
 <%
 }
 %>
