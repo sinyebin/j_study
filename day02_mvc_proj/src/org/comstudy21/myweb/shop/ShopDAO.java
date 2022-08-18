@@ -67,8 +67,19 @@ public class ShopDAO {
 		return shopdto;
 	}
 
-	public void update(ShopDTO dto) {
-
+	public void update(ShopDTO dto) throws SQLException{
+		conn = JdbcUtil.getConnection();
+		pstmt=conn.prepareStatement(UPDATE);
+		pstmt.setString(1, dto.getGoods());
+		pstmt.setInt(2,dto.getPrice());
+		pstmt.setInt(3, dto.getNo());
+		int cnt=pstmt.executeUpdate();
+		if(cnt>0) {
+			System.out.println("update success");
+		}else {
+			System.out.println("update fail");
+		}
+		JdbcUtil.close(conn, pstmt, rs);
 	}
 
 	public void delete(int no) throws SQLException {

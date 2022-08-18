@@ -9,6 +9,7 @@ import org.comstudy21.myweb.controller.MyController;
 import org.comstudy21.myweb.shop.service.ShopDeleteService;
 import org.comstudy21.myweb.shop.service.ShopDetailService;
 import org.comstudy21.myweb.shop.service.ShopListService;
+import org.comstudy21.myweb.shop.service.ShopUpdateService;
 import org.comstudy21.myweb.shop.service.ShopWriteService;
 
 public class ShopController implements MyController{
@@ -30,6 +31,8 @@ public class ShopController implements MyController{
 			viewName=new ShopDetailService().service(req, resp);
 		}else if(fileName.equals("/delete")) {
 			viewName=new ShopDeleteService().service(req, resp);
+		}else if(fileName.equals("/update")) {
+			viewName=new ShopUpdateService().service(req,resp);
 		}
 		
 		return viewName;
