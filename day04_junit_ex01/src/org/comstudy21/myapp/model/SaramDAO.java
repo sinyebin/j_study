@@ -10,15 +10,13 @@ import java.util.List;
 
 import org.comstudy21.myapp.dbcp.JdbcUtil;
 
-
-
 public class SaramDAO {
 
 	public static final String SELECT = "SELECT * FROM SARAM";
 	public static final String INSERT = "INSERT INTO SARAM(NAME,PHONE,EMAIL)VALUES(?,?,?)";
 	public static final String UPDATE = "UPDATE SARAM SET NAME=?, PHONE=?, EMAIL=? WHERE ID=?";
 	public static final String SELECT_ONE = "SELECT * FROM SARAM WHERE ID=?";
-	public static final String SELECT_NAME = "SELECT * FROM SARAM WHERE NAME=?";
+	public static final String SELECT_NAME = "SELECT * FROM SARAM WHERE NAME LIKE '%'||?||'%'";
 	public static final String DELETE = "DELETE FROM SARAM WHERE ID=?";
 
 	private Connection conn;
@@ -62,22 +60,33 @@ public class SaramDAO {
 		return saramdto;
 	}
 
-	public SaramDTO findByName(String name) throws SQLException {
-		SaramDTO saramdto = new SaramDTO();
+	public List<SaramDTO> findByName(SaramDTO dto) {
+		List<SaramDTO> saramList = null;
 		conn = JdbcUtil.getConnection();
-		pstmt = conn.prepareStatement(SELECT_ONE);
-		pstmt.setString(1, name);
-		rs = pstmt.executeQuery();
-		while (rs.next()) {
-			saramdto = new SaramDTO();
-			saramdto.setId(rs.getInt("id"));
-			saramdto.setName(rs.getString("name"));
-			saramdto.setPhone(rs.getString("phone"));
-			saramdto.setEmail(rs.getString("email"));
-
+		try {
+			pstmt = conn.prepareStatement(SELECT_NAME);
+			pstmt.setString(1, dto.getName());
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				if (saramList == null) {
+					saramList = new ArrayList<SaramDTO>();
+				}
+				SaramDTO saramdto = new SaramDTO();
+				saramdto = new SaramDTO();
+				saramdto.setId(rs.getInt("id"));
+				saramdto.setName(rs.getString("name"));
+				saramdto.setPhone(rs.getString("phone"));
+				saramdto.setEmail(rs.getString("email"));
+				saramList.add(saramdto);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			// TODO: handle exception
+		} finally {
+			JdbcUtil.close(conn, stmt, rs);
 		}
-		JdbcUtil.close(conn, stmt, rs);
-		return saramdto;
+
+		return saramList;
 	}
 
 	public void update(SaramDTO dto) throws SQLException {
@@ -112,20 +121,22 @@ public class SaramDAO {
 		JdbcUtil.close(conn, stmt, rs);
 	}
 
-	public void insert(SaramDTO dto) throws SQLException {
+	public int insert(SaramDTO dto) {
 		Connection conn = JdbcUtil.getConnection();
-		pstmt = conn.prepareStatement(INSERT);
-		pstmt.setString(1, dto.getName());
-		pstmt.setString(2, dto.getPhone());
-		pstmt.setString(3, dto.getEmail());
-		int cnt = pstmt.executeUpdate();
-		if (cnt > 0) {
-			System.out.println("insert success");
-		} else {
-			System.out.println("insert fail");
+		int cnt = 0;
+		try {
+			pstmt = conn.prepareStatement(INSERT);
+			pstmt.setString(1, dto.getName());
+			pstmt.setString(2, dto.getPhone());
+			pstmt.setString(3, dto.getEmail());
+			cnt = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcUtil.close(conn, stmt, rs);
 		}
+		return cnt;
 
-		JdbcUtil.close(conn, stmt, rs);
 	}
 
 }

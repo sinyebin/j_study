@@ -2,6 +2,9 @@ package org.comstudy21.myapp.model;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.sql.SQLException;
+import java.util.List;
+
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -9,7 +12,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class SaramDAOTest {
-
+	SaramDAO dao;
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
 	}
@@ -20,6 +23,8 @@ class SaramDAOTest {
 
 	@BeforeEach
 	void setUp() throws Exception {
+		 dao = new SaramDAO();
+
 	}
 
 	@AfterEach
@@ -32,13 +37,20 @@ class SaramDAOTest {
 	}
 
 	@Test
-	void testSelectOne() {
-		fail("Not yet implemented");
+	void testSelectOne() throws SQLException {
+		int id=1;
+		SaramDTO dto = dao.selectOne(id);
+		assertNotNull(dto);
+		System.out.println(dto);
 	}
 
 	@Test
 	void testFindByName() {
-		fail("Not yet implemented");
+		SaramDTO dto = new SaramDTO(0,"HONG","","");
+		List<SaramDTO> list = dao.findByName(dto);
+		assertNotNull(list);
+		assertTrue(list.size()>0);
+		System.out.println(list);
 	}
 
 	@Test
@@ -53,7 +65,9 @@ class SaramDAOTest {
 
 	@Test
 	void testInsert() {
-		fail("Not yet implemented");
+		SaramDTO dto = new SaramDTO(0,"HOST","010-1234-5555","host@aaa.com");
+		int resultCnt = dao.insert(dto);
+		assertTrue(resultCnt>0,"입력 실패입니다!");
 	}
 
 }
