@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script>
+	//문서가 다 읽어지면 실행된다.
+	window.onload = function() {
+		var listBox=document.querySelectorAll(".list_box")[0];
+		console.log("2. window.onload 내부");
+		var addBtn = document.querySelectorAll(".add_btn");
+		console.dir(addBtn);
+		addBtn[0].onclick=function(){
+			//alert("첫번째 버튼 누름");
+			var liTag = document.createElement("li");
+			liTag.innerText="첫번째 버튼 클릭!";
+			listBox.appendChild(liTag);
+		}
+		addBtn[1].onclick=function(){
+			//alert("두번째 버튼 누름");
+			var liTag = document.createElement("li");
+			liTag.innerText="두번째 버튼 클릭!";
+			listBox.appendChild(liTag);
+		}
+	}
+	console.log("3. script내부")
+</script>
+</head>
+<body>
+	<script>
+		console.log("1. body 내부");
+	</script>
+	<button class="add_btn">Add Button1</button>
+	<button class="add_btn">Add Button2</button>
+	<hr />
+	<ul class="list_box">
+		<li>버튼을 클릭하세요.</li>
+	</ul>
+</body>
+</html>
