@@ -5,9 +5,43 @@
 <title>Insert title here</title>
 </head>
 <body>
+
+	<div id="box"></div>
+
 	<script>
-		const xhttp = new XMLHttpRequest();
-		console.dir(xhttp);
-	</script>
+const xhttp = new XMLHttpRequest();
+console.dir(xhttp);
+
+let id = 100;
+let name = "test";
+let phone = "010-7777-7777";
+let email = "test@test.com";
+let queryStr = `id=${id}&name=${name}&phone=${phone}&email=${email}`;
+let urlStr = "http://localhost:8888/day05_js_ex01/data.do?" +  queryStr;
+
+xhttp.onload = function(event) {
+   let obj = JSON.parse(xhttp.responseText);
+   let tmpStr = `<select>
+      <option>id : ${obj.id}</option>
+      <option>name : ${obj.name}</option>
+      <option>phone : ${obj.phone}</option>
+      <option>email : ${obj.email}</option>
+   </select>`;
+   document.getElementById("box").innerHTML = tmpStr;
+   
+   tmpStr = `<ul>
+      <li>id : ${obj.id}</li>
+      <li>name : ${obj.name}</li>
+      <li>phone : ${obj.phone}</li>
+      <li>email : ${obj.email}</li>
+   </ul>`;
+   document.getElementById("box").innerHTML += tmpStr;
+}
+
+xhttp.open("GET", urlStr, true);
+xhttp.send();
+
+</script>
+
 </body>
 </html>

@@ -23,13 +23,14 @@ public class Day05Servlet extends HttpServlet {
 		 * +" <h1>Hello world</h1>"+"</body>"+"</html>"); out.close();
 		 */
 		PrintWriter out = resp.getWriter();
-		int no = Integer.parseInt(req.getParameter("no"));
+		int id = Integer.parseInt(req.getParameter("id"));
 		String name = req.getParameter("name");
 		String phone = req.getParameter("phone");
 		String email = req.getParameter("email");
 
-		String jsonStr = "{\"no\":" + no + ",\"name\":\"" + name + "\",\"phone\":\"" + phone + "\",\"email\":\"" + email
+		String jsonStr = "{\"id\":" + id + ",\"name\":\"" + name + "\",\"phone\":\"" + phone + "\",\"email\":\"" + email
 				+ "\"}";
+
 		out.println(jsonStr);
 
 		out.close();
