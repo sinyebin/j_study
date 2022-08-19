@@ -8,7 +8,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.constudy21.myweb.util.JdbcUtil;
+import org.comstudy21.myapp.dbcp.JdbcUtil;
+
+
 
 public class SaramDAO {
 
