@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+h2 {
+	color: red;
+}
+</style>
+</head>
+<body>
+	<h1>길동이의 홈페이지</h1>
+	<h2>자바스크립트 연습</h2>
+
+	<script>
+		console.dir(document);
+		//document.body.bgColor = "yellow"; // 바디 배경색 바꾸기
+
+		var h2El = document.querySelector("h2");
+		console.dir(h2El);
+		//h2El.style.backgroundColor="blue"; //h2의 색깔 바꾸기
+		//h2El.style.color="yellow";
+		
+		h2El.onclick=function(){//익명 함수 h2 클릭시 바뀌기
+			document.body.bgColor = "yellow";
+			h2El.style.backgroundColor="blue"; //h2의 색깔 바꾸기
+			h2El.style.color="yellow";
+		}
+		
+	</script>
+</body>
+</html>
