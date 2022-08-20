@@ -1,4 +1,4 @@
-package org.restaurant.myweb.reserve;
+package org.restaurant.myweb.member;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,34 +9,36 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.restaurant.myweb.controller.JdbcUtil;
+import org.restaurant.myweb.reserve.ProductDTO;
 
-
-public class ProductDAO {
-	public static final String SELECT = "SELECT * FROM product";
-	public static final String INSERT = "INSERT INTO product(rtitle,rprice)VALUES(?,?)";
-	public static final String UPDATE = "UPDATE product SET rtitle=?, rprice=? WHERE rno=?";
-	public static final String SELECT_ONE = "SELECT * FROM product WHERE rNO=?";
-	public static final String DELETE = "DELETE FROM product WHERE rNO=?";
+public class PeopleDAO {
+	public static final String SELECT = "SELECT * FROM PEOPLE";
+	public static final String INSERT = "INSERT INTO PEOPLE( name, phone, rpay, rno)VALUES(?,?,?,?)";
+	//public static final String UPDATE = "UPDATE product SET rtitle=?, rprice=? WHERE rno=?";
+	//public static final String SELECT_ONE = "SELECT * FROM product WHERE rNO=?";
+	//public static final String DELETE = "DELETE FROM product WHERE rNO=?";
 	private static Connection conn;
 	private static Statement stmt;
 	private static PreparedStatement pstmt;
 	private static ResultSet rs;
-	public static List<ProductDTO> selectAll() throws SQLException {
-		List<ProductDTO> productList = new ArrayList<ProductDTO>();
+	public static List<PeopleDTO> selectAll() throws SQLException {
+		List<PeopleDTO> peopleList = new ArrayList<PeopleDTO>();
 		conn = JdbcUtil.getConnection();
 		stmt = conn.createStatement();
 		rs = stmt.executeQuery(SELECT);
 		while (rs.next()) {
-			ProductDTO dto = new ProductDTO();
-			dto.setRno(rs.getInt("rno"));
-			dto.setRtitle(rs.getString("rtitle"));
-			dto.setRprice(rs.getInt("rprice"));
-			productList.add(dto);
+			PeopleDTO dto = new PeopleDTO();
+			dto.setPno(rs.getInt("pno"));
+			dto.setName(rs.getString("name"));
+			dto.setPhone(rs.getString("phone"));
+			dto.setRpay(rs.getBoolean("pay"));
+			dto.setProduct((ProductDTO) rs.getObject("product"));
+			peopleList.add(dto);
 
 		}
 		//System.out.println(memberList);
 		JdbcUtil.close(conn, stmt, rs);
-		return productList;
+		return peopleList;
 	}
 	public static void insert(ProductDTO dto) throws SQLException {
 		conn=JdbcUtil.getConnection();
@@ -96,6 +98,5 @@ public class ProductDAO {
 		}
 		JdbcUtil.close(conn, stmt, rs);
 	}*/
-
 
 }

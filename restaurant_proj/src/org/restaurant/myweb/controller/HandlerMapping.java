@@ -4,15 +4,18 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import org.restaurant.myweb.menu.MenuController;
+import org.restaurant.myweb.reserve.ReserveController;
+
 
 public class HandlerMapping {
 	private static Map<String, MyController> ctrlMap = new HashMap();
 	static {
 		// 생성자보다 먼저 실행된다.	
 		ctrlMap.put("", new HomeController());
-		//ctrlMap.put("/member", new MemberController());
+		ctrlMap.put("/reserve", new ReserveController());
 		//ctrlMap.put("/bbs", new BoardController());
-		//ctrlMap.put("/shop", new ShopController());
+		ctrlMap.put("/menu", new MenuController());
 	}
 	public static void appendController(String key, MyController newCtrl){
 		ctrlMap.put(key, newCtrl);
