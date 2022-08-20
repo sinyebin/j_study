@@ -8,11 +8,12 @@ import javax.servlet.http.HttpServletResponse;
 import org.restaurant.myweb.controller.HandlerMapping;
 import org.restaurant.myweb.controller.HomeController;
 import org.restaurant.myweb.controller.MyController;
+import org.restaurant.myweb.menu.service.MenuDeleteService;
 import org.restaurant.myweb.menu.service.MenuListService;
+import org.restaurant.myweb.menu.service.MenuUpdateService;
+import org.restaurant.myweb.menu.service.MenuWriteService;
 import org.restaurant.myweb.reserve.ProductDAO;
 import org.restaurant.myweb.reserve.ProductDTO;
-
-
 
 
 
@@ -29,6 +30,12 @@ public class MenuController implements MyController {
 			HandlerMapping handlerMapping = new HandlerMapping();
 			homectrl=handlerMapping.getController("");
 			viewName= homectrl.handleRequest(req, resp);
+		}else if(fileName.equals("/write")) {
+			viewName=new MenuWriteService().service(req, resp);
+		}else if(fileName.equals("/delete")) {
+			viewName=new MenuDeleteService().service(req, resp);
+		}else if(fileName.equals("/update")) {
+			viewName=new MenuUpdateService().service(req, resp);
 		}
 		return viewName;
 	}

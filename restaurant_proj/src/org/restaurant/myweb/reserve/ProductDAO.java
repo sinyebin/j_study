@@ -13,7 +13,7 @@ import org.restaurant.myweb.controller.JdbcUtil;
 
 public class ProductDAO {
 	public static final String SELECT = "SELECT * FROM product";
-	public static final String INSERT = "INSERT INTO product(rtitle,rprice)VALUES(?,?)";
+	public static final String INSERT = "INSERT INTO product(rno,rtitle,rprice)VALUES(NEXTVAL('SEQ_PRODUCT'),?,?)";
 	public static final String UPDATE = "UPDATE product SET rtitle=?, rprice=? WHERE rno=?";
 	public static final String SELECT_ONE = "SELECT * FROM product WHERE rNO=?";
 	public static final String DELETE = "DELETE FROM product WHERE rNO=?";
@@ -67,14 +67,14 @@ public class ProductDAO {
 		}
 		JdbcUtil.close(conn, stmt, rs);
 		return memdto;
-	}
+	}*/
 	   
-	public static void update(MemberDTO dto) throws SQLException {
+	public static void update(ProductDTO dto) throws SQLException {
 		conn = JdbcUtil.getConnection();
 		pstmt = conn.prepareStatement(UPDATE);
-		pstmt.setString(1, dto.getName());
-		pstmt.setString(2, dto.getPhone());
-		pstmt.setInt(3, dto.getNo());
+		pstmt.setString(1, dto.getRtitle());
+		pstmt.setInt(2, dto.getRprice());
+		pstmt.setInt(3, dto.getRno());
 		int cnt = pstmt.executeUpdate();
 		if (cnt > 0) {
 			System.out.println("update success");
@@ -95,7 +95,7 @@ public class ProductDAO {
 			System.out.println("delete fail");
 		}
 		JdbcUtil.close(conn, stmt, rs);
-	}*/
+	}
 
 
 }
