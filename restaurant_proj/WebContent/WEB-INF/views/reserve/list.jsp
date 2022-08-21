@@ -28,7 +28,7 @@
 			}
 		%>
 	</ul>
-	<a href="write.do">예약 등록</a>|
+	<a href="register.do">예약 등록</a>|
 	<a href="home.do">home</a>
 </body>
 </html>

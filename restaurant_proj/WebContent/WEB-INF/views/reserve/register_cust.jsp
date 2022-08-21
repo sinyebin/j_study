@@ -1,7 +1,7 @@
 <%@page import="org.restaurant.myweb.product.ProductDTO"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,7 +10,7 @@
 </head>
 <body>
 	<h1>예약 등록</h1>
-	<form action="register.do" method="post">
+	<form action="register_cust.do" method="post">
 		<p>
 			<label for="">예약자 성명</label> <input type="text" name="name"
 				value="김고객2" />

@@ -10,6 +10,8 @@ import org.restaurant.myweb.controller.HomeController;
 import org.restaurant.myweb.controller.MyController;
 import org.restaurant.myweb.reserve.service.ReserveDeleteService;
 import org.restaurant.myweb.reserve.service.ReserveListService;
+import org.restaurant.myweb.reserve.service.ReserveRegisterCustService;
+import org.restaurant.myweb.reserve.service.ReserveRegisterService;
 
 public class ReserveController implements MyController{
 
@@ -28,6 +30,10 @@ public class ReserveController implements MyController{
 			viewName= homectrl.handleRequest(req, resp);
 		}else if(fileName.equals("/delete")) {
 			viewName=new ReserveDeleteService().service(req, resp);
+		}else if(fileName.equals("/register")) {
+			viewName = new ReserveRegisterService().service(req, resp);
+		}else if(fileName.equals("/register_cust")) {
+			viewName = new ReserveRegisterCustService().service(req, resp);
 		}
 		return viewName;
 	}
