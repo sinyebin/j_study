@@ -1,6 +1,6 @@
 package org.restaurant.myweb.member;
 
-import org.restaurant.myweb.reserve.ProductDTO;
+import org.restaurant.myweb.product.ProductDTO;
 
 public class PeopleDTO {
 	int pno;

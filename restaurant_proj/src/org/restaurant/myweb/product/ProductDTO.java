@@ -1,4 +1,4 @@
-package org.restaurant.myweb.reserve;
+package org.restaurant.myweb.product;
 
 public class ProductDTO {
 	int rno;
@@ -32,7 +32,7 @@ public class ProductDTO {
 	}
 	@Override
 	public String toString() {
-		return "ProductDTO [rno=" + rno + ", rtitle=" + rtitle + ", rprice=" + rprice + "]";
+		return  rno + " - "+ rtitle + " - " +rprice + "원";
 	}
 	
 }

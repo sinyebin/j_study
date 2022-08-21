@@ -9,14 +9,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.restaurant.myweb.controller.JdbcUtil;
-import org.restaurant.myweb.reserve.ProductDTO;
+import org.restaurant.myweb.product.ProductDAO;
+import org.restaurant.myweb.product.ProductDTO;
 
 public class PeopleDAO {
 	public static final String SELECT = "SELECT * FROM PEOPLE";
 	public static final String INSERT = "INSERT INTO PEOPLE( name, phone, rpay, rno)VALUES(?,?,?,?)";
 	//public static final String UPDATE = "UPDATE product SET rtitle=?, rprice=? WHERE rno=?";
 	//public static final String SELECT_ONE = "SELECT * FROM product WHERE rNO=?";
-	//public static final String DELETE = "DELETE FROM product WHERE rNO=?";
+	public static final String DELETE = "DELETE FROM PEOPLE WHERE PNO=?";
 	private static Connection conn;
 	private static Statement stmt;
 	private static PreparedStatement pstmt;
@@ -31,12 +32,11 @@ public class PeopleDAO {
 			dto.setPno(rs.getInt("pno"));
 			dto.setName(rs.getString("name"));
 			dto.setPhone(rs.getString("phone"));
-			dto.setRpay(rs.getBoolean("pay"));
-			dto.setProduct((ProductDTO) rs.getObject("product"));
+			dto.setRpay(rs.getBoolean("rpay"));
+			int rno=rs.getInt("rno");
+			dto.setProduct(ProductDAO.selectOne(rno));
 			peopleList.add(dto);
-
 		}
-		//System.out.println(memberList);
 		JdbcUtil.close(conn, stmt, rs);
 		return peopleList;
 	}
@@ -84,7 +84,7 @@ public class PeopleDAO {
 			System.out.println("update fail");
 		}
 		JdbcUtil.close(conn, stmt, rs);
-	}
+	}*/
 	   
 	public static void delete(int no)throws SQLException {
 		conn = JdbcUtil.getConnection();
@@ -97,6 +97,6 @@ public class PeopleDAO {
 			System.out.println("delete fail");
 		}
 		JdbcUtil.close(conn, stmt, rs);
-	}*/
+	}
 
 }

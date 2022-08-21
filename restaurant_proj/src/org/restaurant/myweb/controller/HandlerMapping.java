@@ -14,7 +14,6 @@ public class HandlerMapping {
 		// 생성자보다 먼저 실행된다.	
 		ctrlMap.put("", new HomeController());
 		ctrlMap.put("/reserve", new ReserveController());
-		//ctrlMap.put("/bbs", new BoardController());
 		ctrlMap.put("/menu", new MenuController());
 	}
 	public static void appendController(String key, MyController newCtrl){

@@ -1,4 +1,4 @@
-package org.restaurant.myweb.reserve;
+package org.restaurant.myweb.product;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -52,22 +52,22 @@ public class ProductDAO {
 
 		JdbcUtil.close(conn, stmt, rs);
 	}
-	   /*
-	public static MemberDTO selectOne(int no) throws SQLException{
-		MemberDTO memdto=new MemberDTO();
+	   
+	public static ProductDTO selectOne(int no) throws SQLException{
+		ProductDTO dto=new ProductDTO();
 		conn = JdbcUtil.getConnection();
 		pstmt = conn.prepareStatement(SELECT_ONE);
 		pstmt.setInt(1, no);
 		rs = pstmt.executeQuery();
 		while (rs.next()) {
-			memdto = new MemberDTO();
-			memdto.setNo(rs.getInt("no"));
-			memdto.setName(rs.getString("name"));
-			memdto.setPhone(rs.getString("phone"));
+			dto = new ProductDTO();
+			dto.setRno(rs.getInt("rno"));
+			dto.setRtitle(rs.getString("rtitle"));
+			dto.setRprice(rs.getInt("rprice"));
 		}
 		JdbcUtil.close(conn, stmt, rs);
-		return memdto;
-	}*/
+		return dto;
+	}
 	   
 	public static void update(ProductDTO dto) throws SQLException {
 		conn = JdbcUtil.getConnection();

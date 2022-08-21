@@ -1,4 +1,4 @@
-<%@page import="org.restaurant.myweb.reserve.ProductDTO"%>
+<%@page import="org.restaurant.myweb.product.ProductDTO"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>

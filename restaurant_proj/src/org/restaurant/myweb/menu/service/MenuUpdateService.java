@@ -3,7 +3,7 @@ package org.restaurant.myweb.menu.service;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.restaurant.myweb.reserve.ProductDTO;
+import org.restaurant.myweb.product.ProductDTO;
 
 public class MenuUpdateService implements MenuService {
 	static ProductDTO selectProduct = new ProductDTO();

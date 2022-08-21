@@ -5,8 +5,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.restaurant.myweb.reserve.ProductDAO;
-import org.restaurant.myweb.reserve.ProductDTO;
+import org.restaurant.myweb.product.ProductDAO;
+import org.restaurant.myweb.product.ProductDTO;
 
 public class MenuListService implements MenuService {
 

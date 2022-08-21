@@ -5,7 +5,11 @@ import java.sql.SQLException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.restaurant.myweb.controller.HandlerMapping;
+import org.restaurant.myweb.controller.HomeController;
 import org.restaurant.myweb.controller.MyController;
+import org.restaurant.myweb.reserve.service.ReserveDeleteService;
+import org.restaurant.myweb.reserve.service.ReserveListService;
 
 public class ReserveController implements MyController{
 
@@ -15,21 +19,15 @@ public class ReserveController implements MyController{
 		String fileName=(String)req.getAttribute("fileName");
 		System.out.println(fileName);
 		String viewName="";
-		if(fileName.equals("/register")) {
-			if(req.getMethod().equals("POST")) {
-				String name=req.getParameter("name");
-				String phone=req.getParameter("phone");
-				BoardDTO dto=new BoardDTO(0,title,content);
-				try {
-					boardDAO.insert(dto);
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				return "redirect:list.do";
-			}else {
-				return "bbs/write";
-			}
+		if(fileName.equals("/list")) {
+			viewName=new ReserveListService().service(req, resp);
+		}else if(fileName.equals("/home")) {
+			MyController homectrl = new HomeController();
+			HandlerMapping handlerMapping = new HandlerMapping();
+			homectrl=handlerMapping.getController("");
+			viewName= homectrl.handleRequest(req, resp);
+		}else if(fileName.equals("/delete")) {
+			viewName=new ReserveDeleteService().service(req, resp);
 		}
 		return viewName;
 	}

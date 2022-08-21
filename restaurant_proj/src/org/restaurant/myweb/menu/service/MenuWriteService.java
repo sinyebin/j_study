@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.restaurant.myweb.reserve.ProductDTO;
+import org.restaurant.myweb.product.ProductDTO;
 
 
 public class MenuWriteService implements MenuService {

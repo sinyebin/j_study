@@ -12,8 +12,8 @@ import org.restaurant.myweb.menu.service.MenuDeleteService;
 import org.restaurant.myweb.menu.service.MenuListService;
 import org.restaurant.myweb.menu.service.MenuUpdateService;
 import org.restaurant.myweb.menu.service.MenuWriteService;
-import org.restaurant.myweb.reserve.ProductDAO;
-import org.restaurant.myweb.reserve.ProductDTO;
+import org.restaurant.myweb.product.ProductDAO;
+import org.restaurant.myweb.product.ProductDTO;
 
 
 
