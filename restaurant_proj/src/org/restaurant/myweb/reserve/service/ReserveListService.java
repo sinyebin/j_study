@@ -11,7 +11,7 @@ public class ReserveListService implements ReserveService {
 
 	@Override
 	public String service(HttpServletRequest req, HttpServletResponse resp) {
-		List<PeopleDTO> peopleList=null;
+		List<Object> peopleList=null;
 		try {
 			peopleList = peopleDAO.selectAll();
 		} catch (Exception e) {

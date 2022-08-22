@@ -8,21 +8,26 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.restaurant.myweb.DAO;
 import org.restaurant.myweb.controller.JdbcUtil;
 
+interface sqlInterface extends DAO {
+	String SELECT = "SELECT * FROM product";
+	String INSERT = "INSERT INTO product(rno,rtitle,rprice)VALUES(NEXTVAL('SEQ_PRODUCT'),?,?)";
+	String UPDATE = "UPDATE product SET rtitle=?, rprice=? WHERE rno=?";
+	String SELECT_ONE = "SELECT * FROM product WHERE rNO=?";
+	String DELETE = "DELETE FROM product WHERE rNO=?";
+}
 
-public class ProductDAO {
-	public static final String SELECT = "SELECT * FROM product";
-	public static final String INSERT = "INSERT INTO product(rno,rtitle,rprice)VALUES(NEXTVAL('SEQ_PRODUCT'),?,?)";
-	public static final String UPDATE = "UPDATE product SET rtitle=?, rprice=? WHERE rno=?";
-	public static final String SELECT_ONE = "SELECT * FROM product WHERE rNO=?";
-	public static final String DELETE = "DELETE FROM product WHERE rNO=?";
+public class ProductDAO implements sqlInterface{
+
 	private static Connection conn;
 	private static Statement stmt;
 	private static PreparedStatement pstmt;
 	private static ResultSet rs;
-	public static List<ProductDTO> selectAll() throws SQLException {
-		List<ProductDTO> productList = new ArrayList<ProductDTO>();
+
+	public List<Object> selectAll() throws SQLException {
+		List<Object> productList = new ArrayList();
 		conn = JdbcUtil.getConnection();
 		stmt = conn.createStatement();
 		rs = stmt.executeQuery(SELECT);
@@ -34,16 +39,18 @@ public class ProductDAO {
 			productList.add(dto);
 
 		}
-		//System.out.println(memberList);
+		// System.out.println(memberList);
 		JdbcUtil.close(conn, stmt, rs);
 		return productList;
 	}
-	public static void insert(ProductDTO dto) throws SQLException {
-		conn=JdbcUtil.getConnection();
-		pstmt=conn.prepareStatement(INSERT);
-		pstmt.setString(1, dto.getRtitle());
-		pstmt.setInt(2, dto.getRprice());
-		int cnt=pstmt.executeUpdate();
+
+
+	public void insert(Object dto) throws SQLException {
+		conn = JdbcUtil.getConnection();
+		pstmt = conn.prepareStatement(INSERT);
+		pstmt.setString(1, ((ProductDTO) dto).getRtitle());
+		pstmt.setInt(2, ((ProductDTO) dto).getRprice());
+		int cnt = pstmt.executeUpdate();
 		if (cnt > 0) {
 			System.out.println("insert success");
 		} else {
@@ -52,9 +59,9 @@ public class ProductDAO {
 
 		JdbcUtil.close(conn, stmt, rs);
 	}
-	   
-	public static ProductDTO selectOne(int no) throws SQLException{
-		ProductDTO dto=new ProductDTO();
+
+	public Object selectOne(int no) throws SQLException {
+		ProductDTO dto = new ProductDTO();
 		conn = JdbcUtil.getConnection();
 		pstmt = conn.prepareStatement(SELECT_ONE);
 		pstmt.setInt(1, no);
@@ -68,13 +75,13 @@ public class ProductDAO {
 		JdbcUtil.close(conn, stmt, rs);
 		return dto;
 	}
-	   
-	public static void update(ProductDTO dto) throws SQLException {
+
+	public void update(Object dto) throws SQLException {
 		conn = JdbcUtil.getConnection();
 		pstmt = conn.prepareStatement(UPDATE);
-		pstmt.setString(1, dto.getRtitle());
-		pstmt.setInt(2, dto.getRprice());
-		pstmt.setInt(3, dto.getRno());
+		pstmt.setString(1, ((ProductDTO) dto).getRtitle());
+		pstmt.setInt(2, ((ProductDTO) dto).getRprice());
+		pstmt.setInt(3, ((ProductDTO) dto).getRno());
 		int cnt = pstmt.executeUpdate();
 		if (cnt > 0) {
 			System.out.println("update success");
@@ -83,8 +90,8 @@ public class ProductDAO {
 		}
 		JdbcUtil.close(conn, stmt, rs);
 	}
-	   
-	public static void delete(int no)throws SQLException {
+
+	public void delete(int no) throws SQLException {
 		conn = JdbcUtil.getConnection();
 		pstmt = conn.prepareStatement(DELETE);
 		pstmt.setInt(1, no);
@@ -96,6 +103,13 @@ public class ProductDAO {
 		}
 		JdbcUtil.close(conn, stmt, rs);
 	}
+
+
+
+
+
+
+
 
 
 }

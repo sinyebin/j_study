@@ -30,7 +30,7 @@ public class ReserveRegisterService implements ReserveService {
 
 			ProductDTO pdto=new ProductDTO();
 			try {
-				pdto = ProductDAO.selectOne(rno);
+				pdto = (ProductDTO) productDAO.selectOne(rno);
 			} catch (SQLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -44,9 +44,9 @@ public class ReserveRegisterService implements ReserveService {
 			}
 			return "redirect:list.do";
 		}else {
-			List<ProductDTO> productList=null;
+			List<Object> productList=null;
 			try {
-				productList=ProductDAO.selectAll();
+				productList=(List<Object>) productDAO.selectAll();
 			} catch (Exception e) {
 				// TODO: handle exception
 				e.printStackTrace();

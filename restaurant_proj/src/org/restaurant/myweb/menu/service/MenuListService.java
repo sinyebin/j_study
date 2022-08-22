@@ -12,9 +12,9 @@ public class MenuListService implements MenuService {
 
 	@Override
 	public String service(HttpServletRequest req, HttpServletResponse resp) {
-		List<ProductDTO> productList=null;
+		List<Object> productList=null;
 		try {
-			productList=ProductDAO.selectAll();
+			productList=productDAO.selectAll();
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
