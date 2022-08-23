@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import org.restaurant.myweb.login.LoginController;
 import org.restaurant.myweb.menu.MenuController;
 import org.restaurant.myweb.reserve.ReserveController;
 
@@ -15,6 +16,7 @@ public class HandlerMapping {
 		ctrlMap.put("", new HomeController());
 		ctrlMap.put("/reserve", new ReserveController());
 		ctrlMap.put("/menu", new MenuController());
+		ctrlMap.put("/login", new LoginController());
 	}
 	public static void appendController(String key, MyController newCtrl){
 		ctrlMap.put(key, newCtrl);

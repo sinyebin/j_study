@@ -10,6 +10,7 @@
 <body>
 <h1>길동이네 식당 예약 프로그램</h1>
 <hr />
+<li><a href="/restaurant_proj/login/loginpage.do">로그인</a></li>
 <ul>
 <%
 	Map items = (Map)request.getAttribute("items");
