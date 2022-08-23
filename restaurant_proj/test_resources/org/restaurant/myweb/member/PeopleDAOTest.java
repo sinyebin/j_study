@@ -10,6 +10,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.restaurant.myweb.people.PeopleDAO;
 import org.restaurant.myweb.product.ProductDTO;
 
 class PeopleDAOTest {
@@ -25,7 +26,7 @@ class PeopleDAOTest {
 
 	@BeforeEach
 	void setUp() throws Exception {
-		dao = new ProductDAO();
+		dao = new PeopleDAO();
 
 	}
 

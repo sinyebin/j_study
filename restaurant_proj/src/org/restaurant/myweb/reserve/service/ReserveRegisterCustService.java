@@ -9,9 +9,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.restaurant.myweb.controller.HandlerMapping;
 import org.restaurant.myweb.controller.HomeController;
 import org.restaurant.myweb.controller.MyController;
-import org.restaurant.myweb.member.PeopleDAO;
-import org.restaurant.myweb.member.PeopleDTO;
 import org.restaurant.myweb.menu.service.MenuService;
+import org.restaurant.myweb.people.PeopleDAO;
+import org.restaurant.myweb.people.PeopleDTO;
 import org.restaurant.myweb.product.ProductDAO;
 import org.restaurant.myweb.product.ProductDTO;
 

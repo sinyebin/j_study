@@ -42,24 +42,6 @@ class ProductDAOTest {
 		System.out.println(dto);
 	}
 
-	@Test
-	void testInsert() throws SQLException {
-		Object dto= new ProductDTO(106, "주말 아침", 200000);
-		int resultCnt = dao.insert(dto);
-		assertTrue(resultCnt>0,"입력 실패입니다!");
-	}
 
-	@Test
-	void testDelete() {
-		int resultCnt = dao.delete(105);
-		assertTrue(resultCnt>0,"입력 실패입니다!");
-	}
-
-	@Test
-	void testUpdate() {
-		Object dto= new ProductDTO(106, "주말 아침", 150000);
-		int resultCnt = dao.update(dto);
-		assertTrue(resultCnt>0,"입력 실패입니다!");
-	}
-
+	
 }

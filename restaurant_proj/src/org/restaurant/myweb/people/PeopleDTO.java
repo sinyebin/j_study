@@ -1,4 +1,4 @@
-package org.restaurant.myweb.member;
+package org.restaurant.myweb.people;
 
 import org.restaurant.myweb.product.ProductDTO;
 

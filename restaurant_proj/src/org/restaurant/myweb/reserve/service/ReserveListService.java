@@ -5,7 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.restaurant.myweb.member.PeopleDTO;
+import org.restaurant.myweb.people.PeopleDTO;
 
 public class ReserveListService implements ReserveService {
 
