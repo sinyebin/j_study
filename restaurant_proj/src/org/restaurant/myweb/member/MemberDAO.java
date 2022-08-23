@@ -13,10 +13,12 @@ import org.restaurant.myweb.DAO;
 import org.restaurant.myweb.controller.JdbcUtil;
 interface sqlInterface extends DAO<MemberDTO> {
 	String SELECT = "SELECT * FROM MEM";
-	String INSERT = "INSERT INTO MEM(mno, id, ,pw, name, phone, email)VALUES(NEXTVAL('SEQ_MEM'),?,?,?,?,?)";
+	String INSERT = "INSERT INTO MEM(mno, id,pw, name, phone, email)VALUES(NEXTVAL('SEQ_MEM'),?,?,?,?,?)";
 	String DELETE = "DELETE FROM MEM WHERE MNO=?";
 	String SELECT_ONE = "SELECT * FROM MEM WHERE MNO=?";
 	String UPDATE = "UPDATE MEM SET id=?, pw=?, name=?, phone=?,email=? WHERE mno=?";
+	String SEARCH_ID = "SELECT count(*) num FROM MEM WHERE ID=?";
+	String CHECK_LOGIN = "SELECT PW passwd FROM MEM WHERE ID=?";
 }
 public class MemberDAO implements sqlInterface {
 	private static Connection conn;
@@ -114,5 +116,35 @@ public class MemberDAO implements sqlInterface {
 		JdbcUtil.close(conn, stmt, rs);
 
 	}
-
+	public boolean searchID(String id)throws SQLException{
+		boolean check=true;
+		conn = JdbcUtil.getConnection();
+		pstmt=conn.prepareStatement(SEARCH_ID);
+		pstmt.setString(1, id);
+		rs = pstmt.executeQuery();
+		rs.next();
+		int p=rs.getInt("num");
+		if (p > 0) {
+			check=false;
+		}
+		JdbcUtil.close(conn, stmt, rs);
+		
+		return check;
+	}
+	public boolean login_Ok(String id, String pw)throws SQLException{
+		boolean check = true;
+		conn = JdbcUtil.getConnection();
+		pstmt=conn.prepareStatement(CHECK_LOGIN);
+		pstmt.setString(1, id);
+		rs = pstmt.executeQuery();
+		rs.next();
+		String p=rs.getString("passwd");
+		if(!p.equals(pw)) {
+			check=false;
+			System.out.println(p +" "+pw);
+			System.out.println("다름");
+		}
+		JdbcUtil.close(conn, stmt, rs);
+		return check;
+	}
 }

@@ -10,7 +10,18 @@
 <body>
 <h1>길동이네 식당 예약 프로그램</h1>
 <hr />
-<li><a href="/restaurant_proj/login/loginpage.do">로그인</a></li>
+<%
+HttpSession ses=request.getSession(false);
+String id=(String)ses.getAttribute("login.id");
+if(id!=null){
+	%>
+	<p><%=id %>님 환영합니다.</p>
+<%}else{
+	%><li><a href="/restaurant_proj/login/loginpage.do">로그인</a></li>
+<%}
+
+%>
+
 <ul>
 <%
 	Map items = (Map)request.getAttribute("items");
