@@ -17,7 +17,7 @@ public class LoginpageService implements LoginService {
 
 	@Override
 	public String service(HttpServletRequest req, HttpServletResponse resp) {
-		resp.setContentType("text/html; charset=UTF-8");		
+		resp.setContentType("text/html; charset=UTF-8");
 		try {
 			req.setCharacterEncoding("UTF-8");
 		} catch (UnsupportedEncodingException e2) {
@@ -31,21 +31,21 @@ public class LoginpageService implements LoginService {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		if(req.getMethod().equals("POST")) {
-			String id=req.getParameter("id");
-			String pw=req.getParameter("pw");
+		if (req.getMethod().equals("POST")) {
+			String id = req.getParameter("id");
+			String pw = req.getParameter("pw");
 			try {
-				boolean check=memberDAO.login_Ok(id, pw);
-				if(check) {
+				boolean check = memberDAO.login_Ok(id, pw);
+				if (check) {
 					HttpSession session = req.getSession();
-					
+
 					session.setAttribute("login.id", id);
 
 					MyController homectrl = new HomeController();
 					HandlerMapping handlerMapping = new HandlerMapping();
-					homectrl=handlerMapping.getController("");
+					homectrl = handlerMapping.getController("");
 					return homectrl.handleRequest(req, resp);
-				}else {
+				} else {
 					out.write("<script>alert('잘못된 id 혹은 비밀번호 입니다.'); location.href='loginpage.do';</script>");
 					out.flush();
 					out.close();
@@ -55,10 +55,10 @@ public class LoginpageService implements LoginService {
 				e.printStackTrace();
 			}
 			return null;
-		}else {		
+		} else {
 			return "login/loginpage";
 		}
-		
+
 	}
 
 }
