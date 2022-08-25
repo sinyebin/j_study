@@ -28,7 +28,7 @@ String serverName = request.getServerName();
 // 웹소켓 프로토콜을 이용해서 서버와 연결
 // WebSocket은 HTML5에 기본 제공된다.
 
-var socket =new WebSocket("ws://<%=serverName%>:<%=port%>/<%=contextPath%>/broadSocket");
+var socket =new WebSocket("ws://<%=serverName%>:<%=port%>/<%=contextPath%>/broadSocket2");
 var txt=document.getElementById("msgTxtArea");
 socket.onopen = function(message) {
 	console.log("onpen ...");
@@ -45,6 +45,7 @@ socket.onerror = function(err) {
 socket.onmessage = function(message) {
 	txt.value+=(">>>message...\n");
 	console.log("onmessage", message);
+	txt.value+=("<<<"+message.data+"\n");
 	
 }
 sendBtn.onclick=function(){
