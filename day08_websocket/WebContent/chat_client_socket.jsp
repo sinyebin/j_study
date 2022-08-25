@@ -58,7 +58,7 @@ loginBtn.onclick=function(){
 sendBtn.onclick=function(){
 	var msg=document.getElementById("txtMsg").value;
 	var recip=document.getElementById("recipient").value;
-	txt.value+=(msg+"\n");
+	txt.value+=("나: "+msg+"\n");
 	socket.send(recip+"|\|"+msg);
 }
 closeBtn.onclick=function(){
