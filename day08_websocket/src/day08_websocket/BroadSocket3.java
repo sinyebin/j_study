@@ -1,12 +1,12 @@
 package day08_websocket;
 
-
 import java.io.IOException;
 import java.security.cert.Extension;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -24,9 +24,16 @@ import javax.websocket.server.ServerEndpoint;
 
 
 @ServerEndpoint(value="/broadSocket/{userID}")
-public class BroadSocket3 {
+public class BroadSocket3 implements Runnable {
 	// 귓속말 메세지를 전달 할 session을 userID로 찾기 위해서 userID와 session을 맵핑한다.
 	static Map<String, Session> sessionMap = Collections.synchronizedMap(new HashMap<>());
+	static int mapSize;
+	static boolean sentFlag = false;
+	static String closeUserID = "";
+	public BroadSocket3() {
+		mapSize = sessionMap.size();
+		new Thread(this).start();;
+	}
 	
 	@OnOpen
 	public void onOpen(Session session, @PathParam("userID") String userID) throws IOException {
@@ -46,15 +53,33 @@ public class BroadSocket3 {
 		// 접속한 사용자의 session을 Map에 저장한다.
 		sessionMap.put(userID, session);
 		
+		synchronized(sessionMap) {
+			for(String userid : sessionMap.keySet()) {
+				Session sess = sessionMap.get(userid);
+				Set<String> keyset = sessionMap.keySet();
+				Iterator<String> iter = keyset.iterator();
+				StringBuffer strbf = new StringBuffer("[");
+				while(iter.hasNext()) {
+					strbf.append("\""+iter.next()+"\",");
+				}
+				strbf.deleteCharAt(strbf.lastIndexOf(","));
+				strbf.append("]");
+				//sess.getBasicRemote().sendText(strbf.toString());
+			}
+			mapSize = sessionMap.size();
+		}
+		
+		
 		for(String userid : sessionMap.keySet()) {
-			(sessionMap.get(userid)).getBasicRemote().sendText(userID + "님이 입장하였습니다!");
+			(sessionMap.get(userid)).getBasicRemote().sendText(userID + "||님이 입장하였습니다!");
 		}
 	}
 	
 	@OnClose
-	public void onClose(Session session, @PathParam("userID") String userID) {
+	public void onClose(Session session, @PathParam("userID") String userID) throws IOException {
 		System.out.println("소켓 서버"+ session.getId() +"이(가) 닫혔습니다...");
 		sessionMap.remove(userID);
+		closeUserID = userID;
 	}
 	
 	@OnMessage
@@ -62,7 +87,7 @@ public class BroadSocket3 {
 		System.out.println("받은 메세지 : " + message);
 		// clientSessionSet에서 클라이언트 세션을 가져와서 sender를 제외한 모든 세션에 메세지를 보낸다.
 		// 동기적으로 메세지를 보내야 한다.
-		synchronized(sessionMap) {
+		synchronized(sessionMap) {			
 			//System.out.println("set size : " + sessionMap.size());
 			System.out.println(message);
 			StringTokenizer stk = new StringTokenizer(message, "||");
@@ -86,5 +111,38 @@ public class BroadSocket3 {
 	@OnError 
 	public void onError(Throwable th) {
 		th.printStackTrace();
+	}
+
+	@Override
+	public void run() {
+		while(true){
+			try {
+				Thread.sleep(1000);
+				if(mapSize != sessionMap.size()) {
+					synchronized(sessionMap) {
+						for(String userid : sessionMap.keySet()) {
+							Session session = sessionMap.get(userid);
+							Set<String> keyset = sessionMap.keySet();
+							Iterator<String> iter = keyset.iterator();
+							StringBuffer strbf = new StringBuffer("[");
+							while(iter.hasNext()) {
+								strbf.append("\""+iter.next()+"\",");
+							}
+							strbf.deleteCharAt(strbf.lastIndexOf(","));
+							strbf.append("]");
+							session.getBasicRemote().sendText(strbf.toString());
+							if(mapSize > sessionMap.size()) {
+								session.getBasicRemote().sendText(closeUserID+"님이 퇴장 하였습니다!");
+							}
+						}
+					}
+					mapSize = sessionMap.size();
+				}
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 }

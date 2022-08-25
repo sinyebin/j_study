@@ -18,7 +18,9 @@ String serverName = request.getServerName();
 		사용자 : <input id="sender" type="text" value="user1"> 
 		<input id="loginBtn" value="Login" type="button"> 
 		<input id="closeBtn" value="Disconnect" type="button"><br> 
-		받는이: <input id="recipient" type="text" value="All"><br> 
+		받는이: <select id="recipient">
+			<option value="All">All</option>
+		</select><br> 
 		메세지: <input id="txtMsg" type="text" value="hello"> 
 		<input id="sendBtn" value="Send" type="button">
 	</form>
@@ -44,9 +46,20 @@ function connection(){
 		console.log("소켓 오류", err);
 	}
 	socket.onmessage = function(message) {
-		txt.value+=(">>>message...\n");
-		console.log("onmessage", message);
-		txt.value+=("<<<"+message.data+"\n");
+		try{
+			//var html="";
+			var html="<option value= All> All</option>";
+			var userList=JSON.parse(message.data);
+			console.log(userList);
+			for(var i in userList){
+				var user=userList[i];
+				html += "<option value=" + user  + ">"+ user + "</option>";
+			}
+			document.getElementById("recipient").innerHTML=html;
+		}catch(e){
+			
+		}
+		txt.value+=(message.data+"\n");
 		
 	}
 }
