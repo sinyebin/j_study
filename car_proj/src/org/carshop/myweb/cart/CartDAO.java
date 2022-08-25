@@ -15,15 +15,15 @@ import org.carshop.myweb.controller.JdbcUtil;
 import org.carshop.myweb.member.MemberDAO;
 import org.carshop.myweb.member.MemberDTO;
 import org.carshop.myweb.product.ProductDAO;
+import org.carshop.myweb.product.ProductDTO;
 
 interface sqlInterface extends DAO<CartDTO> {
 	String SELECT = "SELECT * FROM CART WHERE MNO=?";
 	String INSERT = "INSERT INTO CART(MNO,PNO, EA)VALUES(?,?,?)";
 	String DELETE = "DELETE FROM MEM WHERE MNO=?";
-	String SELECT_ONE = "SELECT * FROM MEM WHERE MNO=?";
-	String UPDATE = "UPDATE MEM SET id=?, pw=?, name=?, phone=?,email=? WHERE mno=?";
-	String SEARCH_ID = "SELECT count(*) num FROM MEM WHERE ID=?";
-	String CHECK_CART = "SELECT MNO FROM CART WHERE PNO=?";
+	String SELECT_ONE = "SELECT * FROM CART WHERE MNO=? and PNO = ?";
+	String UPDATE = "UPDATE CART SET MNO=?, PNO=?, EA=? WHERE CNO=?";
+	String CHECK_CART = "SELECT COUNT(*)NUM FROM CART WHERE MNO=? AND PNO=?";
 }
 
 public class CartDAO implements sqlInterface {
@@ -58,21 +58,38 @@ public class CartDAO implements sqlInterface {
 		boolean check=true;
 		conn = JdbcUtil.getConnection();
 		pstmt=conn.prepareStatement(CHECK_CART);
-		pstmt.setInt(1, pno);
+		pstmt.setInt(1, mno);
+		pstmt.setInt(2, pno);
 		rs = pstmt.executeQuery();
 		rs.next();
-		int p=rs.getInt("MNO");
-		if (p !=mno) {
+		int p=rs.getInt("num");
+		if (p != 0 ) {
 			check=false;
 		}
 		JdbcUtil.close(conn, stmt, rs);
 		
 		return check;
 	}
-	@Override
-	public CartDTO selectOne(int no) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+
+	public CartDTO selectOne(int mno,int pno) throws SQLException {
+		System.out.println("check");
+		CartDTO dto = new CartDTO();
+		conn = JdbcUtil.getConnection();
+		pstmt = conn.prepareStatement(SELECT_ONE);
+		pstmt.setInt(1, mno);
+		pstmt.setInt(2, pno);
+		rs = pstmt.executeQuery();
+		while(rs.next()) {
+			dto.setCno(rs.getInt("CNO"));
+			int mNo=rs.getInt("MNO");
+			int pNo=rs.getInt("PNO");
+			MemberDAO memDAO=new MemberDAO();
+			ProductDAO productDAO = new ProductDAO();
+			dto.setMemDTO(memDAO.selectOne(mNo));
+			dto.setProDTO(productDAO.selectOne(pNo));
+			dto.setEa(rs.getInt("EA"));
+		}
+		return dto;
 	}
 
 	@Override
@@ -95,7 +112,19 @@ public class CartDAO implements sqlInterface {
 	@Override
 	public void update(CartDTO obj) throws SQLException {
 		// TODO Auto-generated method stub
-
+		conn=JdbcUtil.getConnection();
+		pstmt = conn.prepareStatement(UPDATE);
+		pstmt.setInt(1, obj.getMemDTO().getMno());
+		pstmt.setInt(2, obj.getProDTO().getPno());
+		pstmt.setInt(3, obj.getEa());
+		pstmt.setInt(4, obj.getCno());
+		int cnt = pstmt.executeUpdate();
+		if (cnt > 0) {
+			System.out.println("update success");
+		} else {
+			System.out.println("update fail");
+		}
+		JdbcUtil.close(conn, stmt, rs);
 	}
 
 	@Override
@@ -106,6 +135,11 @@ public class CartDAO implements sqlInterface {
 
 	@Override
 	public List<CartDTO> selectAll() throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public CartDTO selectOne(int no) throws SQLException {
 		// TODO Auto-generated method stub
 		return null;
 	}

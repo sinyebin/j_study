@@ -36,30 +36,24 @@ public class CartAddService implements CartService {
 		MemberDTO mdto = null;
 		try {
 			mdto=mdao.selectOne(no);
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		try {
 			if(!cartDAO.checkCart(no, pno)) {
-				
-			}else {
+				CartDTO cartDTO=cartDAO.selectOne(no,pno);
+				cartDTO.setEa(cartDTO.getEa()+ea);
+				cartDAO.update(cartDTO);
+			}else {				
 				CartDTO cartDTO= new CartDTO(0,mdto,product,ea);
-				cartDAO.insert(cartDTO);
-			}
-			
+				cartDAO.insert(cartDTO);				
+			}			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		List<CartDTO> cartList=null;
-		try {
-			cartList=cartDAO.selectAll_ID(no);
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		req.setAttribute("cartList", cartList);
 		return "cart/list";
 	}
 

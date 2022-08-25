@@ -9,8 +9,19 @@
 </head>
 <body>
 <h1>장바구니 목록</h1>
+<table border="1" width="100%">
+<tr>
+   <th>차종</th>
+   <th>제조사</th>
+   <th>가격</th>
+   <th>수량</th>
+</tr>
+<c:forEach var="p" items="${cartList }">
+   <tr align="center">
+      <td>${p.proDTO.pname }</td><td>${p.proDTO.company}</td><td>${p.proDTO.price }</td>
+      <td>${p.ea }</td>
+   </tr>
+</c:forEach>
 
-<c:forEach var="car" items="${cartList }">
-<p><c:out value="${car }"></c:out><a href="cart_process.jsp?cmd=remove&pno=${car.pno }&ea=0">제거</a></p>
 </body>
 </html>

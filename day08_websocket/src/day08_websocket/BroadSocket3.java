@@ -52,7 +52,7 @@ public class BroadSocket3 implements Runnable {
 		// PathParam 어노테이션을 이용한 파라미터 전달
 		//System.out.println("path param sender : " + userID);
 		// 접속한 사용자의 session을 Map에 저장한다.
-		if(!sessionMap.containsKey(userID)) {
+		if(!sessionMap.containsKey(userID)&&!userID.equals("All")) {
 			sessionMap.put(userID, session);
 			synchronized(sessionMap) {
 				for(String userid : sessionMap.keySet()) {
