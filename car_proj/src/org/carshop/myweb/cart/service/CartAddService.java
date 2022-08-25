@@ -54,7 +54,7 @@ public class CartAddService implements CartService {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return "cart/list";
+		return "redirect:list.do";
 	}
 
 }
