@@ -28,30 +28,38 @@ String serverName = request.getServerName();
 // 웹소켓 프로토콜을 이용해서 서버와 연결
 // WebSocket은 HTML5에 기본 제공된다.
 
-var socket =new WebSocket("ws://<%=serverName%>:<%=port%>/<%=contextPath%>/broadSocket2");
+var socket =null;
 var txt=document.getElementById("msgTxtArea");
-socket.onopen = function(message) {
-	console.log("onpen ...");
-	txt.value+=(">>>open...\n");
+function connection(){
+	socket.onopen = function(message) {
+		console.log("onpen ...");
+		txt.value+=(">>>open...\n");
+	}
+	socket.onclose = function(message) {
+		txt.value+=(">>>onclose...\n");
+		console.log("onclose ...");
+	}
+	socket.onerror = function(err) {
+		txt.value+=(">>>error...\n");
+		console.log("소켓 오류", err);
+	}
+	socket.onmessage = function(message) {
+		txt.value+=(">>>message...\n");
+		console.log("onmessage", message);
+		txt.value+=("<<<"+message.data+"\n");
+		
+	}
 }
-socket.onclose = function(message) {
-	txt.value+=(">>>onclose...\n");
-	console.log("onclose ...");
-}
-socket.onerror = function(err) {
-	txt.value+=(">>>error...\n");
-	console.log("소켓 오류", err);
-}
-socket.onmessage = function(message) {
-	txt.value+=(">>>message...\n");
-	console.log("onmessage", message);
-	txt.value+=("<<<"+message.data+"\n");
-	
+loginBtn.onclick=function(){
+	var sender=document.getElementById("sender").value;
+	socket=new WebSocket("ws://<%=serverName%>:<%=port%>/<%=contextPath%>/broadSocket/"+sender);
+	connection();
 }
 sendBtn.onclick=function(){
 	var msg=document.getElementById("txtMsg").value;
+	var recip=document.getElementById("recipient").value;
 	txt.value+=(msg+"\n");
-	socket.send(msg);
+	socket.send(recip+"|\|"+msg);
 }
 closeBtn.onclick=function(){
 	socket.close();
