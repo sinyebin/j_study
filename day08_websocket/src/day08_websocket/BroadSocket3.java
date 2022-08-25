@@ -1,6 +1,7 @@
 package day08_websocket;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.security.cert.Extension;
 import java.util.Arrays;
 import java.util.Collections;
@@ -51,28 +52,33 @@ public class BroadSocket3 implements Runnable {
 		// PathParam 어노테이션을 이용한 파라미터 전달
 		//System.out.println("path param sender : " + userID);
 		// 접속한 사용자의 session을 Map에 저장한다.
-		sessionMap.put(userID, session);
-		
-		synchronized(sessionMap) {
-			for(String userid : sessionMap.keySet()) {
-				Session sess = sessionMap.get(userid);
-				Set<String> keyset = sessionMap.keySet();
-				Iterator<String> iter = keyset.iterator();
-				StringBuffer strbf = new StringBuffer("[");
-				while(iter.hasNext()) {
-					strbf.append("\""+iter.next()+"\",");
+		if(!sessionMap.containsKey(userID)) {
+			sessionMap.put(userID, session);
+			synchronized(sessionMap) {
+				for(String userid : sessionMap.keySet()) {
+					Session sess = sessionMap.get(userid);
+					Set<String> keyset = sessionMap.keySet();
+					Iterator<String> iter = keyset.iterator();
+					StringBuffer strbf = new StringBuffer("[");
+					while(iter.hasNext()) {
+						strbf.append("\""+iter.next()+"\",");
+					}
+					strbf.deleteCharAt(strbf.lastIndexOf(","));
+					strbf.append("]");
+					sess.getBasicRemote().sendText(strbf.toString());
 				}
-				strbf.deleteCharAt(strbf.lastIndexOf(","));
-				strbf.append("]");
-				//sess.getBasicRemote().sendText(strbf.toString());
+				mapSize = sessionMap.size();
 			}
-			mapSize = sessionMap.size();
+			
+			
+			for(String userid : sessionMap.keySet()) {
+				(sessionMap.get(userid)).getBasicRemote().sendText(userID + "||님이 입장하였습니다!");
+			}
+		}else {
+			session.getBasicRemote().sendText("등록된 id입니다.");
 		}
+		//sessionMap.put(userID, session);	
 		
-		
-		for(String userid : sessionMap.keySet()) {
-			(sessionMap.get(userid)).getBasicRemote().sendText(userID + "||님이 입장하였습니다!");
-		}
 	}
 	
 	@OnClose

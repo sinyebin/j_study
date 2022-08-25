@@ -57,9 +57,9 @@ function connection(){
 			}
 			document.getElementById("recipient").innerHTML=html;
 		}catch(e){
-			
+			txt.value+=(message.data+"\n");
 		}
-		txt.value+=(message.data+"\n");
+		
 		
 	}
 }
