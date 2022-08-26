@@ -38,4 +38,12 @@ public class ProductDAO {
 		session.close();
 		return searchList;
 	}
+	public static int delete(String pno) {
+		Map<String,String> map = new Hashtable<String, String>();
+		map.put("pno", pno);
+		SqlSession session = FactoryService.getFactory().openSession(true);
+		int cnt=session.delete("product.delete",map);
+		session.close();
+		return cnt;
+	}
 }

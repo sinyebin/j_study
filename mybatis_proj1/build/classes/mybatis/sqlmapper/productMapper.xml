@@ -21,4 +21,7 @@
 	<insert id="add" parameterType="java.util.Map">
 		INSERT INTO PRODUCT VALUES (seq_product.nextVal,#{pname},#{price})
 	</insert>
+	<delete id="delete" parameterType="java.util.Map">
+		DELETE FROM PRODUCT WHERE PNO = #{pno}
+	</delete>
 </mapper>

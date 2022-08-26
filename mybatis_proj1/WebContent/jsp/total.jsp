@@ -167,6 +167,8 @@
 					<th bgcolor="orange" width="150">가격</th>
 		</tr>
 	</script>
+	
+	
 	<script>
 		function addFun(){
 			var addWin=document.getElementById("add_win");
