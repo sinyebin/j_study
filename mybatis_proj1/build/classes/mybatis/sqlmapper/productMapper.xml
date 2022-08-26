@@ -24,4 +24,7 @@
 	<delete id="delete" parameterType="java.util.Map">
 		DELETE FROM PRODUCT WHERE PNO = #{pno}
 	</delete>
+	<update id="update" parameterType="java.util.Map">
+		UPDATE PRODUCT SET pname = #{pname}, price=#{price} WHERE pno=#{pno}
+	</update>
 </mapper>

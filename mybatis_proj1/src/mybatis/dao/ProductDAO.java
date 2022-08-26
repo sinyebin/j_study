@@ -10,39 +10,55 @@ import mybatis.service.FactoryService;
 import mybatis.vo.ProductVO;
 
 public class ProductDAO {
-	public static List<ProductVO> getTotal(){
+	public static List<ProductVO> getTotal() {
 		SqlSession session = FactoryService.getFactory().openSession();
 		List<ProductVO> list = session.selectList("product.total");
 		return list;
 	}
-	public static int add(String pno, String pname,String price) {
-		Map<String,String> map = new Hashtable<String, String>();
-		
+
+	public static int add(String pno, String pname, String price) {
+		Map<String, String> map = new Hashtable<String, String>();
+
 		map.put("pno", pno);
 		map.put("pname", pname);
 		map.put("price", price);
-		
+
 		SqlSession session = FactoryService.getFactory().openSession(true);
-		int cnt=session.insert("product.add",map);
+		int cnt = session.insert("product.add", map);
 		session.close();
 		return cnt;
 	}
-	public static List<ProductVO>conditionSearch(String searchCondition, String searchKeyword){
-		Map<String,String> map = new Hashtable();
+
+	public static List<ProductVO> conditionSearch(String searchCondition, String searchKeyword) {
+		Map<String, String> map = new Hashtable();
 		map.put("searchCondition", searchCondition);
 		map.put("searchKeyword", searchKeyword);
-		
+
 		SqlSession session = FactoryService.getFactory().openSession();
-		
-		List<ProductVO> searchList=session.selectList("product.conditionSearch",map);
+
+		List<ProductVO> searchList = session.selectList("product.conditionSearch", map);
 		session.close();
 		return searchList;
 	}
+
 	public static int delete(String pno) {
-		Map<String,String> map = new Hashtable<String, String>();
+		Map<String, String> map = new Hashtable<String, String>();
 		map.put("pno", pno);
 		SqlSession session = FactoryService.getFactory().openSession(true);
-		int cnt=session.delete("product.delete",map);
+		int cnt = session.delete("product.delete", map);
+		session.close();
+		return cnt;
+	}
+
+	public static int update(String pno, String pname, String price) {
+		Map<String, String> map = new Hashtable<String, String>();
+
+		map.put("pno", pno);
+		map.put("pname", pname);
+		map.put("price", price);
+
+		SqlSession session = FactoryService.getFactory().openSession(true);
+		int cnt = session.insert("product.update", map);
 		session.close();
 		return cnt;
 	}

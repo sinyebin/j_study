@@ -81,7 +81,7 @@
 					<tr>
 						<td>${vo.pname }</td>
 						<td>${vo.price }</td>
-						<td width="60"><button onclick="showUpdate(${vo.pname},'${vo.price}')">수정</button></td>						
+						<td width="60"><button onclick="showUpdate(${vo.pno},'${vo.pname}',${vo.price})">수정</button></td>						
 						<td width="60"><button onclick="location.href='delete.jsp?pno=${vo.pno}'">삭제</button></td>	
 					</tr>
 				</c:forEach>
@@ -167,9 +167,33 @@
 					<th bgcolor="orange" width="150">가격</th>
 		</tr>
 	</script>
-	
+	<div id="update_win">
+		<header>
+			<h2>상품 수정</h2>
+		</header>
+		<div id="body">
+			<form id="updateForm" name="updateForm" method="POST" action="update.jsp">
+				<label for="pno">상품 번호</label>
+				<input type="text" id="pnoOfUpdate" name="pno" readonly/>
+				<br/>
+				
+				<label for="pname">상품</label>
+				<input type="text" id="pnameOfUpdate" name="pname"/>
+				<br/>
+				
+				<label for="price">가격</label>
+				<input type="text" id="priceOfUpdate" name="price"/>
+				<br/>
+								
+				<input type="button" value="수정" id="update_submit_btn" onclick="sendDataOfUpdate()"/>
+				<input type="button" value="취소" id="update_cancel_btn" onclick="closeWinOfUpdate()"/>
+			</form>
+			<br/>
+		</div>
+	</div>	
 	
 	<script>
+		//상품 추가
 		function addFun(){
 			var addWin=document.getElementById("add_win");
 			addWin.style.display="block";
@@ -183,6 +207,8 @@
 			var addWin = document.getElementById("add_win");
 			addWin.style.display = "none";
 		}
+		
+		//상품 검색
 		function searchFun(){
 			var xhr = new XMLHttpRequest();
 			xhr.onload = function(){
@@ -202,6 +228,26 @@
 		}
 		function closeWinOfSearch() {
 			var updateWin = document.getElementById("search_win");
+			updateWin.style.display = "none";
+		}
+		
+		//상품 업데이트
+		function showUpdate(pno, pname, price){
+			var updateForm = document.getElementById("updateForm");
+			updateForm.pno.value=pno;
+			updateForm.pname.value=pname;
+			updateForm.price.value=price;
+			
+			var updateWin=document.getElementById("update_win");
+			updateWin.style.display="block";
+		}
+		function sendDataOfUpdate(){
+			var pname = document.getElementById("pnameOfUpdate").value;
+			var price = document.getElementById("priceOfUpdate").value;
+			document.updateForm.submit();
+		}
+		function closeWinOfUpdate() {
+			var updateWin = document.getElementById("update_win");
 			updateWin.style.display = "none";
 		}
 	</script>
