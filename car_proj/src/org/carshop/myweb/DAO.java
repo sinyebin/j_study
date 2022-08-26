@@ -16,5 +16,5 @@ public interface DAO<T> {
 
 	public void delete(int no)throws SQLException;
 
-
+//
 }
