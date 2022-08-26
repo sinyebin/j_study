@@ -6,6 +6,18 @@
  	<select id="total" resultType="mybatis.vo.ProductVO">
  		SELECT * FROM PRODUCT
 	</select>
+	<select id="conditionSearch" resultType="mybatis.vo.ProductVO">
+		SELECT * FROM PRODUCT
+		<if test="searchCondition != null and searchKeyword != null">	
+			<if test="searchCondition == 'pname'">
+				WHERE pname
+			</if>
+			<if test="searchCondition == 'price'">
+				WHERE price
+			</if>
+			LIKE '%'||#{searchKeyword}||'%'
+		</if>
+	</select>
 	<insert id="add" parameterType="java.util.Map">
 		INSERT INTO PRODUCT VALUES (seq_product.nextVal,#{pname},#{price})
 	</insert>

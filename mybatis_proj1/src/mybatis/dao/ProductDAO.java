@@ -27,4 +27,15 @@ public class ProductDAO {
 		session.close();
 		return cnt;
 	}
+	public static List<ProductVO>conditionSearch(String searchCondition, String searchKeyword){
+		Map<String,String> map = new Hashtable();
+		map.put("searchCondition", searchCondition);
+		map.put("searchKeyword", searchKeyword);
+		
+		SqlSession session = FactoryService.getFactory().openSession();
+		
+		List<ProductVO> searchList=session.selectList("product.conditionSearch",map);
+		session.close();
+		return searchList;
+	}
 }
