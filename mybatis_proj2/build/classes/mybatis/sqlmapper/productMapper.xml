@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="product">
+ 	<select id="total" resultType="mybatis.vo.ProductVO">
+ 		SELECT * FROM PRODUCT
+	</select>
+	<select id="conditionSearch" resultType="mybatis.vo.ProductVO">
+		SELECT * FROM PRODUCT
+		<if test="searchCondition != null and searchKeyword != null">	
+			<if test="searchCondition == 'pname'">
+				WHERE pname
+			</if>
+			<if test="searchCondition == 'price'">
+				WHERE price
+			</if>
+			LIKE '%'||#{searchKeyword}||'%'
+		</if>
+	</select>
+	<insert id="add" parameterType="java.util.Map">
+		INSERT INTO PRODUCT VALUES (seq_product.nextVal,#{pname},#{price})
+	</insert>
+	<delete id="delete" parameterType="java.util.Map">
+		DELETE FROM PRODUCT WHERE PNO = #{pno}
+	</delete>
+	<update id="update" parameterType="java.util.Map">
+		UPDATE PRODUCT SET pname = #{pname}, price=#{price} WHERE pno=#{pno}
+	</update>
+</mapper>

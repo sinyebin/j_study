@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<script>
+		var rootUrl = location.href;
+	    var rootUri = rootUrl.substr(0, rootUrl.lastIndexOf("/"));
+	</script>
+</head>
+
+<body class="container">
+    <h1>Ajax 연습</h1>
+    <br />
+    <div>
+        <div id="body">				
+		<label for="ename">이름</label>
+		<input type="text" id="ename" name="ename" value="홍길동"/>
+		<br/>
+		<label for="dept">부서</label>
+		<input type="text" id="dept" name="dept" value="개발"/>
+		<br/>
+		<label for="position">직책</label>
+		<input type="text" id="position" name="position" value="대리"/>
+		<br/><br/>
+        <button id="readBtn" class="btn btn-danger">새 사원 추가</button>
+        <hr>
+        <button class="choiceDel">선택 삭제</button>
+        | 검색 :
+		<select  class="keyword" id="searchCondition" name="searchCondition">
+			<option value="ename">이름
+			<option value="dept">부서
+			<option value="position">직책
+		</select>
+		<input type="text" class="search" />
+        <table id="msg_list" border="1" class="table table-hover"></table>
+    </div>
+    <address>(c)comstudy21.or.kr</address>
+
+    <script src=" http://code.jquery.com/jquery.js">
+    </script>
+    <script>
+        var msgListDOM = document.getElementById("msg_list");
+
+        function myGet(url, callback) {
+            const xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function (event) {
+                if (this.readyState === 4 && this.status === 200) {
+                    callback(this.responseText, true, this);
+                }
+            };
+            xhr.open("GET", url, true);
+            xhr.send();
+        }
+
+        $("input.search").on("keyup", function (event) {
+            var word = event.target.value;
+            var keyword = $("select.keyword").val();
+            // Ajax를 이요해서 서버에서 검색 결과를 가져와서 showList한다.
+            if (word.length > 0) {
+                var url = `${rootUri}/emp/search?keyword=${keyword}&word=${word}`;
+                myGet(url, function (data, status, xhr) {
+                    if (status) {
+                        showList(data, status, xhr);
+                    }
+                });
+            } else {
+                loadData();
+            }
+        });
+
+        const showList = function (data, status, xhr) {
+            var msgArr = JSON.parse(data.trim());
+            console.log(msgArr);
+            $("#msg_list").html(`<tr style="background-color:orange;">
+                <th><input type="checkbox" class="noCheckAll" /></tn>
+                <th width="10%">번호</th>
+                <th width="20%">사원명</th>
+                <th width="30%">부서</th>
+                <th width="20%">직급</th>
+                <th width="10%">수정</th>
+                <th width="10%">삭제</th>
+            </tr>`);
+            for (var i = 0; i < msgArr.length; i++) {
+                rowTag = `<tr data-no="${msgArr[i].empno}">
+                    <td><input type="checkbox" data-no="${msgArr[i].empno}" class="noCheck" /></td>
+                    <td>${msgArr[i].empno}</td>
+                    <td class="enameCell">${msgArr[i].ename}</td>
+                    <td class="deptCell">${msgArr[i].dept}</td>
+                    <td class="positionCell">${msgArr[i].position}</td>
+                    </td>
+                    <td><button data-no="${msgArr[i].empno}" class="editBtn">edit</button></td>
+                    <td><input data-no="${msgArr[i].empno}" class="delBtn" type="button" value="delete"/></td>
+                    </tr>`;
+                $('#msg_list').append(rowTag);
+            } // end of for
+
+            $("button.choiceDel").on('click', function (event) {
+                //var selectedNo = [];
+                $("input[type=checkbox].noCheck").each((idx, element) => {
+                    if ($(element).prop("checked") == true) {
+                        //selectedNo.push()
+                        var url = rootUri + "/emp/delete?delType=choice&empno=" + $(element).attr("data-no");
+                        console.log(url);
+                        myGet(url, function (data, status, xhr) {
+                            //
+                        });
+                    }
+                });
+
+                loadData();
+            });
+
+            $("input[type=checkbox].noCheckAll").on('click', function (event) {
+                $("input[type=checkbox].noCheck").prop("checked", $(this).prop("checked"));
+            });
+
+            for (var i = 0; i < msgArr.length; i++) {
+                $("select.score:nth(" + i + ")>option:nth(" + msgArr[i].score + ")").prop("selected", "selected")
+            }
+
+            $("button.editBtn").on("click", function (event) {
+                // 화살표 함수에서 this는 window이다.
+                console.log(event.target.dataset.no);
+                if ($(this).text() == "edit") {
+                    $(this).text("ok");
+
+                    var $tr = $(this).parent().parent();
+                    var ename = $tr.find("td.enameCell").text();
+                    var dept = $tr.find("td.deptCell").text();
+                    var position = $tr.find("td.positionCell").text();
+                    $tr.find("td.enameCell").html(`<input name='newEname' value="${ename}" />`);
+                    $tr.find("td.deptCell").html(`<input name='newDept' value="${dept}" />`);
+                    $tr.find("td.positionCell").html(`<input name='newPosition' value="${position}" />`);
+                } else {
+                    // 서버에 적용 해당 데이터 갱신
+                    var empno = event.target.dataset.no;
+                    var $tr = $(this).parent().parent();
+                    var newEname = $tr.find("input[name=newEname]").val();
+                    var newDept = $tr.find("input[name=newDept]").val();
+                    var newPosition = $tr.find("input[name=newPosition]").val();
+
+                    // 서버에서 적용하도록 Ajax로 처리한다.
+                    var url = `${rootUri}/emp/update?empno=${empno}&ename=${newEname}&dept=${newDept}&position=${newPosition}`;
+                    console.log(url);
+                    myGet(url, function (data, status, xhr) {
+                        // 수정된 레코드만 바뀌게 하기
+                        
+                        var rowData = JSON.parse(data.trim());
+                        var $tr = $(event.target).parent().parent();
+                        $tr.find("td.enameCell").html(rowData.ename);
+                        $tr.find("td.deptCell").html(rowData.dept);
+                        $tr.find("td.positionCell").html(rowData.position);
+                        $(event.target).text("edit");
+                    });
+                }
+            });
+
+            $('select.score').on('change', (event) => {
+                //console.log(event.target.value, event.target.dataset.no);
+                // 서버에 score를 전송한다. 
+                // 서버의 리스트에 반영한다.
+                // 그 결과를 받아서 select에 적용한다.
+                // showList()호출
+                var no = event.target.dataset.no;
+                var value = event.target.value
+                var url = `${rootUri}/emp/score?empno=${empno}&value=${value}`;
+                myGet(url, (data, status, xhr) => {
+                    if (status) {
+                        showList(data, status, xhr);
+                    }
+                });
+            });
+
+            $("input.delBtn").on('click', (event) => {
+                //console.log(event.target.dataset.no)
+                // event.target 구조분해 할당
+                const {
+                    dataset: {
+                        no,
+                    }
+                } = event.target;
+
+                var url = rootUri + "/emp/delete?empno=" + no;
+                myGet(url, (data, status, xhr) => {
+                    if (status) {
+                        showList(data, status, xhr);
+                    }
+                });
+            });
+        } /// showList
+
+        var loadData = function () {
+            // Ajax를 이용해서 서버에서 array를 받아온다.
+            // 그 데이터를 table에 적용한다.
+            myGet(`${rootUri}/emp/loadData`, showList);
+        }
+
+        loadData();
+
+        document.querySelector('#readBtn').onclick = function () {
+            console.log("버튼을 눌렀다!");
+            var ename = document.getElementById("ename").value;
+            var dept = document.getElementById("dept").value;
+            var position = document.getElementById("position").value;
+            myGet(`${rootUri}/emp/data?ename=${ename}&dept=${dept}&position=${position}`, function (data, status, xhr) {
+                // data가 array이고 그 내용을 table에 추가한다.
+                console.log(data);
+                showList(data, status, xhr);
+                // input 창 초기화
+                document.getElementById("ename").value = "";
+                document.getElementById("dept").value = "";
+                document.getElementById("position").value = "";
+            });
+        }
+
+        $(window).on('keydown', function (event) {
+            if (event.keyCode === 13) {
+                // trigger or 함수 호출
+                $('#readBtn').trigger("click");
+            }
+        })
+    </script>
+</body>
+
+</html>
