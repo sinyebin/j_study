@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css"></style>
+<script type="text/javascript"></script>
+</head>
+<body>
+	<form action="result.jsp" name="form1" method="get">
+		<fieldset>
+			<legend>
+				이름입력하기
+			</legend>
+			<div>
+				<label for="user_name">이름: </label>
+				<input type="text" name="user_name" id="user_name" />
+			</div>
+			<br />
+			<div>
+				<input type="submit" value="입력완료"/>
+				<input type="reset" value="다시작성"/>
+				<input type="button" value="일반버튼" onclick="input()"/>
+				<input type="image" src="../img/ok.png" alt="입력완료"/>
+			</div>			
+		</fieldset>	
+	</form>
+	<script type="text/javascript">
+		function input(){
+			//if(document.form1.user_name.value=="") alert("이름을 입력하세요");
+			if(document.getElementById("user_name").value=="") alert("이름을 입력하세요");
+			else document.form1.submit();
+		}
+	</script>
+</body>
+</html>

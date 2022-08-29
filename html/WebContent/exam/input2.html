@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<!-- form 중첩 x -->
+	<form action="result2.jsp" name="form1" method="get">
+		<div>
+			<label for="x">X</label> <input type="text" name="x" id="x" maxlength="20" />
+		</div>
+		<div>
+			<label for="y">Y</label> <input type="text" name="y" id="y" maxlength="20" />
+		</div>
+		<div>
+			<input type="button" value="합" onclick="input()" /> 
+			<input type="reset" value="취소" />
+		</div>
+	</form>
+	<script type="text/javascript">
+		function input() {
+			if (document.getElementById("x").value == "") {
+				alert("X를 입력하세요");
+				document.form1.x.focus();
+			} else if (document.getElementById("y").value == "") {
+				alert("Y를 입력하세요");
+				document.form1.y.focus();
+			} else {
+				document.form1.submit();
+			}
+		}
+	</script>
+</body>
+</html>
