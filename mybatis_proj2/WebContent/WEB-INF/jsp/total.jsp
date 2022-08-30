@@ -93,7 +93,7 @@
 			<h2>상품 추가</h2>
 		</header>
 		<div id="body">
-			<form name="addForm" method="POST" action="add.jsp">				
+			<form name="addForm" method="POST" action="product/add">				
 				<label for="pname">상품</label>
 				<input type="text" id="pname" name="pname"/>
 				<br/>
