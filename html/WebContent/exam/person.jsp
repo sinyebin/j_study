@@ -10,7 +10,15 @@
 <body>
 	<h3>
 		이름: ${param.name } <br/>
-		나이: ${param.age } <br/>
+		나이: ${param.age } 
+		<c:if test="${param.age<19 }">
+			(청소년)
+			<br/>
+		</c:if>
+		<c:if test="${param.age>=19 }">
+			(성인)
+			<br/>
+		</c:if>
 		성별: 
 		<c:if test="${param.gender=='0' }">
 			남자
@@ -31,9 +39,18 @@
 		</c:forEach>
 		<br/>
 		색깔: 
-		<c:forEach var="data" items="${paramValues.color }">	
+		<%-- <c:forEach var="data" items="${paramValues.color }">	
 			${data }
 		</c:forEach>
+		<br/> 
+		&nbsp; &emsp;
+		--%>
+		<c:choose>
+			<c:when test="${param.color== 'red'}">빨강</c:when>
+			<c:when test="${param.color== 'green'}">초록</c:when>
+			<c:when test="${param.color== 'blue'}">파랑</c:when>
+			<c:when test="${param.color== 'magenta'}">보라</c:when>
+		</c:choose>
 		<br/>
 	</h3>
 	<input type="button" value="다시 작성하기" onclick="javascript:history.go(-1)" />

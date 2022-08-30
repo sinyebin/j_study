@@ -3,17 +3,30 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style type="text/css">
+#form1 div{
+	font-size: 8pt;
+	color: red;
+	font-weight: bold;
+}
+</style>
 </head>
 <body>
-	<form action="person.jsp" name="form1" method="get">
+	<form action="person.jsp" id="form1" name="form1" method="get">
 		<table border="1" cellpadding="10" cellspacing="0">
 			<tr>
-				<td><label for="name">이름 </label> </td>
-				<td><input type="text" name="name" id="name" /></td>				
+				<td width="70"><label for="name">이름 </label> </td>
+				<td>
+					<input type="text" name="name" id="name" />
+					<div id="nameDiv"></div>
+				</td>				
 			</tr>
 			<tr>
 				<td><label for="age">나이 </label> </td>
-				<td><input type="text" name="age" id="age" /></td>				
+				<td>
+					<input type="text" name="age" id="age" />
+					<div id="ageDiv"></div>		
+				</td>				
 			</tr>
 			<tr>
 				<td><label for="gender">성별 </label></td>
@@ -42,7 +55,7 @@
 			<tr>
 				<td><label for="subject">과목 </label></td>
 				<td>
-					<select name="subject" id="subject" size="7" multiple>
+					<select name="subject" id="subject" size="5" multiple style="width:100px;">
 					<option value="JAVA">JAVA</option>
 					<option value="Spring">Spring</option>
 					<option value="HTML">HTML</option>
@@ -53,8 +66,8 @@
 			<tr>
 				<td><label for="color">색깔 </label></td>
 				<td>
-					<select name="color" id="color">
-					<option value="red">빨강</option>
+					<select name="color" id="color" style="width: 80px">
+					<option value="red" selected>빨강</option>
 					<option value="green">초록</option>
 					<option value="blue">파랑</option>
 					<option value="margenta">보라</option>					
@@ -72,11 +85,15 @@
 	<script type="text/javascript">
 		function input() {
 			if (document.getElementById("name").value == "") {
-				alert("이름 입력하세요");
+				//alert("이름 입력하세요");
+				document.getElementById("nameDiv").innerText="이름을 입력하세요";
 				document.form1.name.focus();
+				return;
 			}else if (document.getElementById("age").value == "") {
-				alert("나이를 입력하세요");
+				//alert("나이를 입력하세요");
+				document.getElementById("ageDiv").innerText="나이를 입력하세요";
 				document.form1.age.focus();
+				return;
 			}else if (document.getElementById("subject").value == "") {
 				alert("과목을 입력하세요");
 				document.form1.subject.focus();
