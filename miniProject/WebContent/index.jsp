@@ -20,6 +20,7 @@ html,body{
 <body>
 	<jsp:include page="./template/top.jsp"></jsp:include>
 	<jsp:include page="./template/left.jsp"></jsp:include>
+	<jsp:include page="./member/loginForm.jsp"></jsp:include>
 	<jsp:include page="./template/body.jsp"></jsp:include>	
 	<jsp:include page="./template/bottom.jsp"></jsp:include>
 </body>

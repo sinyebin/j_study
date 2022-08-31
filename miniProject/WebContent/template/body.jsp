@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 <style type="text/css">
 .section{
-	width:80%;
+	width:70%;
 	heigth:70%;
 	float:right;
 
@@ -16,7 +16,7 @@
 </head>
 <body>
 <section class = "section">
-환영합니다! <br />
+안녕하세요 <br />
 <img src="./img/망상토끼.gif" alt="망상토끼" /> 
 </section>
 </body>
