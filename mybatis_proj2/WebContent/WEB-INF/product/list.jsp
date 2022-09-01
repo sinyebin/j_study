@@ -12,6 +12,7 @@
 	</script>
 </head>
 <body>
+<form action="/mybatis_proj2/product/add">
 <div>
 	<div id="body">
 		<label for="pname">상품</label>
@@ -19,17 +20,30 @@
 		<br />
 		<label for="ename">금액</label>
 		<input type="text" id="price" name="price" value="1500"/>
+		<br />
+		<input type="submit" value="상품 추가" />
+		<br />
+		<br />
 	</div>
-
-
-
 </div>
+</form>
+
+<table border="1">
+<thead>
+<tr>
+	<th width="20%">상품 번호</th>
+	<th width="60%">상품</th>
+	<th width="20%">가격</th>
+</tr>
+</thead>
 <c:forEach var = "pro" items="${list }">
 	<tr>
-		<td>${pro.pno }</td>
-		<td>${pro.pname }</td>
-		<td>${pro.price }</td>
+		<td style="text-align:center">${pro.pno }</td>
+		<td style="text-align:center">${pro.pname }</td>
+		<td style="text-align:center">${pro.price }</td>
 	</tr>	
 </c:forEach>
+</table>
+
 </body>
 </html>

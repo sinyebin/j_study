@@ -44,12 +44,12 @@ public class productController extends HttpServlet{
 		}
 		System.out.println(">>> path => " + path);
 		String viewname="";
-		if(path.equals( "/product/list")) {
-			List<ProductVO>list = ProductDAO.getTotal();
-			req.setAttribute("list", list);
+		if(path.equals( "/product/list")) {			
 			viewname=prefix+path+suffix;
-			RequestDispatcher dispatcher = req.getRequestDispatcher(viewname);
-			dispatcher.forward(req, resp);
+			search(req, resp, viewname);
+		}else if(path.equals("/product/add")) {
+			viewname=prefix+"/product/list"+suffix;
+			addData(req, resp,viewname);			
 		}
 	}
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -58,5 +58,16 @@ public class productController extends HttpServlet{
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		doProcess(req, resp);
 	}
-
+	private void search(HttpServletRequest req, HttpServletResponse resp,String viewname) throws ServletException, IOException {
+		List<ProductVO>list = ProductDAO.getTotal();
+		req.setAttribute("list", list);
+		RequestDispatcher dispatcher = req.getRequestDispatcher(viewname);
+		dispatcher.forward(req, resp);
+	}
+	private void addData(HttpServletRequest req, HttpServletResponse resp,String viewname) throws ServletException, IOException {
+		String pname=req.getParameter("pname");
+		String price=req.getParameter("price");
+		ProductDAO.add("0", pname, price);
+		search(req,resp,viewname);
+	}
 }
