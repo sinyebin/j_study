@@ -43,13 +43,13 @@ public class productController extends HttpServlet{
 			path = reqUri.substring(beginIndex);
 		}
 		System.out.println(">>> path => " + path);
-		String viewname="";
+		String viewname=prefix+"/product/list"+suffix;
 		if(path.equals( "/product/list")) {			
-			viewname=prefix+path+suffix;
 			search(req, resp, viewname);
 		}else if(path.equals("/product/add")) {
-			viewname=prefix+"/product/list"+suffix;
 			addData(req, resp,viewname);			
+		}else if(path.equals("/product/delete")) {
+			deleteData(req, resp, viewname);
 		}
 	}
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -69,5 +69,10 @@ public class productController extends HttpServlet{
 		String price=req.getParameter("price");
 		ProductDAO.add("0", pname, price);
 		search(req,resp,viewname);
+	}
+	private void deleteData(HttpServletRequest req, HttpServletResponse resp,String viewname) throws ServletException, IOException {
+		String pno=req.getParameter("pno");
+		int cnt=ProductDAO.delete(pno);
+		search(req, resp, viewname);
 	}
 }

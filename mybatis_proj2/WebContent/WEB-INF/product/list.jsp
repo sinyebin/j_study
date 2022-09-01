@@ -32,8 +32,9 @@
 <thead>
 <tr>
 	<th width="20%">상품 번호</th>
-	<th width="60%">상품</th>
+	<th width="50%">상품</th>
 	<th width="20%">가격</th>
+	<th width="10%">삭제</th>
 </tr>
 </thead>
 <c:forEach var = "pro" items="${list }">
@@ -41,6 +42,7 @@
 		<td style="text-align:center">${pro.pno }</td>
 		<td style="text-align:center">${pro.pname }</td>
 		<td style="text-align:center">${pro.price }</td>
+		<td style="text-align:center"><button onclick="location.href='/mybatis_proj2/product/delete?pno=${pro.pno}'">삭제</button></td>
 	</tr>	
 </c:forEach>
 </table>
