@@ -1,0 +1,311 @@
+@charset "UTF-8";
+
+@import	url('https://fonts.googleapis.com/css2?family=Merienda:wght@700&display=swap');
+
+@import	url('https://fonts.googleapis.com/css2?family=Qwitcher+Grypen:wght@700&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Kanit&display=swap');
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box; /* 박스 영역은 테두리까지 */
+}
+
+a {
+	text-decoration: none;
+}
+ul{
+	list-style: none;
+}
+/* container start*/
+#container {
+	margin: 0 auto;
+	width: 1200px;
+}
+
+/*header start */
+header {
+	width: 100%;
+	height: 100px;
+	background-color:#07c;
+}
+/*logo start*/
+#logo {
+	float: left;
+	width: 250px;
+	height: 100px;
+	line-height: 100px;
+	padding-left: 20px;
+	/*background-color: indigo;*/
+}
+
+#logo h1 {
+	font-family: 'Qwitcher Grypen', cursive;
+	font-weight: 700;
+	font-size: 40px;
+	color: #fff;
+	text-shadow: 0 -1px 0 #222;
+}
+/*logo end*/
+
+/*nav start*/
+nav {
+	float: right;
+	width: 900px;
+	height: 100px;
+	padding-top: 40px;
+	/*background-color: green;*/
+}
+#topMenu{
+	height:60px;
+}
+
+#topMenu > li{
+	float:left;
+	position:relative; /*서브 메뉴를 absolute로 하기 위해, 이 부분을 relative로*/
+}
+
+#topMenu > li >a{
+	display: block;
+	color: #fff;
+	font-family: 'Kanit', sans-serif;
+	font-weight:600;
+	text-shadow: 0 1px #07c;
+	padding: 20px 60px;
+}
+#topMenu > li > a > span{
+	font-size:0.5em;
+}
+#topMenu > li > a:hover{
+	color: #000; /*마우스 올리면 색상 바뀜 */
+	text-shadow:0 -1px #07c; /*글자가 너무 굵어지지 않도록*/
+}
+
+#topMenu > li > ul{ /*서브 메뉴 스타일*/
+	display:none; /* 서브 메뉴 처음에는 안보이게*/
+	position: absolute;
+	width: 160px;
+	background:rgba(255,255,255,0.6); /*슬라이드 쇼 비치도록 배경 색 조정*/
+	left: 20px;  /* 서브 메누가 왼쪽으로 너무 치우쳐서 있어 오른쪽으로 이동*/
+	margin:0;
+}
+#topMenu >li >ul >li{
+	padding: 10px 10px 10px 30px; /* 서브 메뉴 항목 */ 
+}
+#topMenu >li > ul >li > a{
+	font-family: 'Kanit', sans-serif;
+	font-size:14px;
+	padding:10px;
+	color:#000;
+}
+#topMenu > li:hover >ul{
+	display:block; /*메인 메뉴 항목 위로 마우스가 올라오면 서브 메뉴 표시*/
+	z-index:10; /*슬라이드 쇼에 가리지 않게 조절*/
+}
+#topMenu >li >ul >li a:hover{
+	color:#f00; /*서브 메뉴 마우스가 올라오면 색상 바뀜 */
+}
+/*nav end*/
+/*header end*/
+
+/*slideShow start*/
+#slideShow {
+	clear: both;
+	width: 100%;
+	height: 300px;
+	overflow: hidden;
+	position: relative;
+	/*background-color:orange;*/
+}
+#slides{
+	position:absolute;
+}
+#slides >img{
+	width:100%;
+	float:left;
+}
+button{
+	position:absolute;
+	height:100%; /*위 아래 가득 차게 */
+	top:0;
+	border:none;
+	padding:20px;
+	background-color:transparent; /*투명 배경 */
+	color: #000; /* 화살표 색은 검정 */
+	font-weight: 800; /*굵게*/
+	font-size:24px; /*화살표 크기*/
+	opacity: 0.5; /*반투명*/
+}
+#prev{
+	left:0; /*왼쪽으로 붙여서*/
+}
+#next{
+	right:0; /*오른쪽으로 붙여서*/
+}
+button:hover{
+	background-color:#222;
+	color:#fff; /*흰색 화살표*/
+	opacity:0.6;
+	cursor:pointer;
+}
+button:focus{
+	outline:0; /*아웃라인 없앰*/
+}
+/*slideShow end*/
+
+/*contents start*/
+#contents {
+	width: 100%;
+	height: 300px;
+	margin-top: 20px;
+}
+/*tabMenu start*/
+#tabMenu {
+	float: left;
+	width: 600px;
+	height: 100%;
+	margin-top: 10px;
+	/*background-color: violet*/
+}
+#tabMenu input[type="radio"]{
+	display:none;
+}
+#tabMenu label{
+	display:inline-block;
+	margin:0 0;
+	padding: 15px 25px;
+	font-weight:600;
+	text-align:center;
+	color:#aaa;
+	border:1px solid transparent;
+}
+#tabMenu label:hover{
+	color:#222;
+	curso:pointer;
+}
+#tabMenu input:checked+label{ /*활성화된 탭 제목 스타일*/
+	color:#b00;
+	border:1px solid #ddd;
+	background-color: #eee;
+}
+.tabContent{ /*탭 내용 스타일*/
+	display:none;
+	padding:20px 0 0;
+	border-top:1px solid #ddd;	
+}
+.tabContent h2{
+	display:none;
+}
+
+#notice ul{
+	list-style: disc;
+	margin-left:30px;
+}
+#notice ul li{
+	font-size:16px;
+	line-height:2.5;
+}
+#gallery ul li{
+	display:inline; /*이미지 가로로 배치*/
+}
+#tab1:checked ~ #notice, 
+#tab2:checked ~ #gallery {
+  display:block;
+}
+/*tabMenu end*/
+
+/*Quick link start*/
+#links{
+	float:right;
+	width:600px;
+	height:100%;
+	margin-top:20px;
+}
+#links ul{
+	padding:0;
+	overflow:hidden;
+}
+#links ul li{
+	float:left;
+	width:33%;
+	text-align:center;
+	margin:10px 0;
+}
+
+#links ul li a span{
+	display:block;
+	margin: 0 auto;
+	width:150px;
+	height:150px;
+	border-radius:100%;
+	border:1px solid #ddd;
+	line-height:150px;
+}
+#quick-icon1 {
+  background-image:url('../img/icon-1.jpg'); 
+}
+#quick-icon2 {
+  background-image:url('../img/icon-2.jpg'); 
+}
+#quick-icon3 {
+  background-image:url('../img/icon-3.jpg'); 
+}
+
+#links ul li a p{
+	margin-top:15px;
+	font-weight:600;
+	color:#600;
+}
+/*Quick link end*/
+
+/*contents end*/
+
+/*footer start*/
+footer {
+	width: 100%;
+	height: 100px;
+	border-top: 2px solid #222;
+	/*background-color: gray;*/
+}
+#bottomMenu{
+	width:100%;
+	height:20px;
+	position:relative;
+}
+#bottomMenu ul{
+	margin-top:15px;
+}
+#bottomMenu ul li{
+	float:left;
+	padding:5px 20px;
+	border-right: 1px solid #ddd; /*항목 오른쪽에 테두리*/
+}
+#bottomMenu ul li:last-child{
+  border:none;  /* 마지막 항목에는 오른쪽 테두리 없음 */  
+}
+#bottomMenu ul li a, #bottomMenu ul li a:visited{
+	font-size:15px;  
+  	color:#666;
+}
+#sns{
+	position:absolute;
+	padding: 0px 100px;
+	right:0;
+}
+#sns ul li{
+	border:none;
+	padding:5px;
+	float:left;
+}
+#company{
+	clear:left;
+	margin-top:25px;
+	margin-left:20px;
+}
+p {
+  font-size:14px; 
+  color:#aaa;   
+}
+/*footer end*/
+
+/*container end*/
