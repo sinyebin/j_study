@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="product">
+	<select id="total" resultType="mybatis.vo.ProductVO">
+		Select * from product
+	</select>
+	
+	<insert id="add" parameterType="java.util.Map">
+		INSERT INTO product VALUES(seq_product.nextval, #{rtitle}, #{rprice})
+	</insert>
+	
+	<update id="update" parameterType="java.util.Map">
+		UPDATE product SET rtitle = #{rtitle}, rprice = #{rprice} WHERE rno = #{rno} 
+	</update>
+	
+	<select id="findByNo" parameterType="java.util.Map" resultType="mybatis.vo.ProductVO" >
+		SELECT * FROM product WHERE rno = #{rno}
+	</select>
+	
+	<delete id="delete" parameterType="java.util.Map">
+		DELETE FROM product WHERE rno = #{rno}
+	</delete>
+</mapper>
