@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	<!-- DataSource 설정 -->
+	<!-- 1. 먼저 H2 데이터베이스가 실행 되어야 합니다. -->
+	<!-- 2. mybatis-confing.xml이 준비 되어야 합니다.  -->
+	<!-- 3. h2 db 커넥션 라이브러리를 직접 lib 폴더 생성해서 h2-1.4.200.jar파일을 넣어 줍니다. -->	
+	<!-- 4. BoardDTO.java 파일이 있어야 합니다. -->
+	<bean id="dataSource"
+		class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="org.h2.Driver"></property>
+		<property name="url" value="jdbc:h2:tcp://localhost/~/test"></property>
+		<property name="username" value="sa"></property>
+		<property name="password" value="12345"></property>
+	</bean>
+
+	<bean id="sqlSessionFactory"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="configLocation"
+			value="classpath:mybatis-config.xml"></property>
+	</bean>
+
+	<bean class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSessionFactory"></constructor-arg>
+	</bean>
+</beans>
