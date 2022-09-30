@@ -17,13 +17,11 @@ public class BoardDeleteService implements BoardService{
 		String passwd = req.getParameter("passwd"); 
 		BoardDTO dto=boardDAO.findByNum(num);
 		if(dto.getPasswd().equals(passwd)) {
-			System.out.println("비밀번호 일치");
 			boardDAO.delete(num);
 			List<BoardDTO> boardList = boardDAO.getTotal();
 			mav.addObject("boardList", boardList);
 			mav.setViewName("board/list");
 		}else {
-			System.out.println("비밀번호 불일치");
 			try {
 				PrintWriter out = resp.getWriter();
 				out.println("<script>alert('비밀번호 불일치');history.go(-1);</script>");

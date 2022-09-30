@@ -32,7 +32,9 @@
 		</tr>
 		<tr>
 			<td width="100" align="right"></td>
-			<td><input type="submit" value="쓰기"/></td>
+			<td><input type="submit" value="쓰기"/>
+			<button type="button" onClick="location.href='list.do'">글 목록</button>
+			</td>
 		</tr>
 	</table>
 	
