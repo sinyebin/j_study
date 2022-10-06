@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<typeAlias alias="boardVO"
+			type="org.comstudy21.myapp.board.BoardVO" />
+		<typeAlias alias="userVO"
+			type="org.comstudy21.myapp.user.UserVO" />
+	</typeAliases>
+
+
+	<mappers>
+		<mapper resource="mybatis/mapper/BoardMapper.xml" />
+		<mapper resource="mybatis/mapper/UserMapper.xml" />
+	</mappers>
+</configuration>
+
+
