@@ -6,6 +6,17 @@
 
 <p>This is some text.</p>
 <h1>게시글 목록</h1>
+<hr/>
+    <a href="/user/logout">로그아웃</a>
+<form action="list" method="get">
+검색: 
+<select name="searchCondition" id="">
+	<option value="title">제목</option>
+	<option value="writer">글쓴이</option>
+	<option value="content">내용</option>
+</select>
+<input type="text" name="searchKeyword" /> <input type="submit" value="검색"	/>
+</form>
 <table class="table table-striped">
 	<tr>
 		<th>번호</th>
@@ -25,4 +36,5 @@
 
 <hr/>
     <a href="input">작성</a>
+
 <%@ include file="/inc/bottom.jsp" %>

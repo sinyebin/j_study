@@ -7,7 +7,6 @@
 </h1>
 
 <P>  The time on the server is ${serverTime}. </P>
-<a href="/board/list">게시판</a>
-<br />
-<a href="/user/list">회원</a>
+
+<a href="/user/login">로그인</a>
 <%@ include file="/inc/bottom.jsp" %>

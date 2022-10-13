@@ -10,15 +10,15 @@
 
    <select id="getBoardList"
       resultType="boardVO">
-      select * from board_ex;
+      select*from board_ex where title like '%' || #{searchKeyword} || '%' order by seq desc;
    </select>
    <select id ="searchBoard"
    		resultType="boardVO">
-   		select*from board_ex where title like '%' || #{searchKeywork} || '%';
+   		select*from board_ex where title like '%' || #{searchKeyword} || '%' order by seq desc;
    </select>
    <insert id="insertBoard">
-   		INSERT INTO BOARD_ex(SEQ, TITLE, WRITER, CONTENT)
-		VALUES ((select nvl(max(seq),0)+1 from board_Ex), #{title},#{writer},#{content});	
+   		INSERT INTO BOARD_ex(SEQ, TITLE, WRITER, CONTENT,FILENAME,UPLOADLOCATION)
+		VALUES ((select nvl(max(seq),0)+1 from board_Ex), #{title},#{writer},#{content},#{fileName},#{uploadLocation});	
    </insert>
    <update id="updeateBoard">
    		UPDATE BOARD_Ex SET TITLE=#{title}, WRITER=#{writer}, CONTENT=#{content} WHERE SEQ=#{seq};

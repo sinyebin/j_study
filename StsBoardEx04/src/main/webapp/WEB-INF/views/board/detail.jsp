@@ -28,7 +28,12 @@
 	</tr>
 	<tr>
 		<th>내용</th>
-		<td><c:out value="${board.content }"></c:out></td>
+		<td>
+			<c:out value="${board.content }"></c:out>
+			<c:if test="${board.fileName !=null}">
+				<img src="/upload/${board.fileName }"/>
+			</c:if>
+		</td>
 	</tr>
 </table>
 <hr/>

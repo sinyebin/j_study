@@ -8,15 +8,15 @@
 	<table class="table table-striped">
 		<tr>
 			<td width="100" align="right"> 제목: &nbsp;	</td>
-			<td><input type="text" size="20" maxlength="100" name="author" value=${board.title } /></td>
+			<td><input type="text" size="20" maxlength="100" name="title" value=${board.title } /></td>
 		</tr>
 		<tr>
 			<td width="100" align="right"> 글쓴이: &nbsp;	</td>
-			<td><input type="text" size="30" maxlength="200" name="email" value=${board.writer } /></td>
+			<td><input type="text" size="30" maxlength="200" name="writer" value=${board.writer } /></td>
 		</tr>
 		<tr>
 			<td width="100" align="right"> 내용: &nbsp;	</td>
-			<td><input type="text" size="67" maxlength="500" name="title" value=${board.content } /></td>
+			<td><input type="text" size="67" maxlength="500" name="content" value=${board.content } /></td>
 		</tr>
 		<tr>
 			<td width="100" align="right"></td>

@@ -2,6 +2,8 @@ package org.comstudy21.myapp.board;
 
 import java.sql.Date;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,7 +18,13 @@ public class BoardVO {
 	private String content;
 	private Date regdate;
 	private int cnt;
-	private String searchKeywork;
+	private String searchKeyword="";
+	private String searchCondition="";
+	//1. commons-fileupload 라이브러리 추가 해야 사용 가능.
+	//2. CommonsMultipartResolver 빈 생성
+	private MultipartFile uploadFile;
+	private String fileName="";
+	private String uploadLocation="";
 	
 	public BoardVO(String title, String writer, String content) {
 		this.title = title;
@@ -27,4 +35,5 @@ public class BoardVO {
 	public BoardVO(int seq) {
 		this.seq = seq;
 	}
+
 }

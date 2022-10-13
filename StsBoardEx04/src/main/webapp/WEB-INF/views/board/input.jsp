@@ -3,30 +3,34 @@
     
 <%@ include file="/inc/top.jsp" %>
     
-    <h1>게시 글 입력</h1>
-<form action="input" method="POST">
-	<table class="table table-striped">
-		<tr>
-			<th>제목</th>
-			<td><input type="text" size="20" maxlength="100" name="title" /></td>
-		</tr>
-		<tr>
-			<th>글쓴이</th>
-			<td><input type="text" size="30" maxlength="200" name="writer" /></td>
-		</tr>
-		<tr>
-			<th>내용</th>
-			<td><input type="text" size="67" maxlength="500" name="content" /></td>
-		</tr>
-		<tr>
-			<td width="100" align="right"></td>
-			<td><input type="submit" value="쓰기"/>
-			<button type="button" onClick="location.href='list.do'">글 목록</button>
-			</td>
-		</tr>
-	</table>
+    <h1>새 글 입력</h1>
+    
+	<form action="input" method="post" enctype="multipart/form-data">
+		<table class="table table-striped">
+			<tr>
+				<th>제목</th>
+				<td><input name="title" value="새글 입력 연습" /></td>
+			</tr>
+			<tr>
+				<th>글쓴이</th>
+				<td><input name="writer" value="홍길동" /></td>
+			</tr>
+			<tr>
+				<th>내용</th>
+				<td><textarea name="content" rows="8" cols="50">새글 입력 연습입니다.</textarea></td>
+			</tr>
+			<tr>
+				<th>사진</th>
+				<td>
+					<input multiple type="file" name="uploadFile" />
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2"><div id="previewImg">사진 미리보기 공간</div></td>
+			</tr>
+		</table>
+		<input type="submit" value="입력 완료">
+	</form>
 	
-</form>    
-       
 <%@ include file="/inc/bottom.jsp" %>
    
